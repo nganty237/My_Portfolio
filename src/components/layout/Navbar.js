@@ -20,13 +20,13 @@ export function Navbar() {
   const logoSource = logoNg?.src ?? logoNg ?? ''
 
   return `
-    <header class="sticky top-0 z-40 bg-surface-strong shadow-sm">
+    <header class="sticky top-0 z-40 bg-surface-strong/80 shadow-sm backdrop-blur-sm">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a class="flex items-center gap-3 font-display text-2xl text-ink" href="/index.html" aria-label="${name}, retour à l'accueil">
           ${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : '<span>NG.</span>'}
         </a>
 
-        <nav class="hidden items-center gap-8 text-sm md:flex" aria-label="Navigation principale">
+        <nav class="hidden items-center gap-8 text-sm font-sans md:flex" aria-label="Navigation principale">
           ${navigationLinks('transition hover:text-accent')}
         </nav>
 
@@ -47,8 +47,8 @@ export function Navbar() {
             ${Icon('close')}
           </button>
         </div>
-        <nav class="mt-14 grid gap-5 text-sm" aria-label="Navigation mobile">
-          ${navigationLinks('font-display transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
+        <nav class="mt-14 grid gap-5 text-sm font-sans" aria-label="Navigation mobile">
+          ${navigationLinks('transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
         </nav>
         <button class="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="Activer le mode sombre">
           <span data-theme-icon>${Icon('moon', { size: 15 })}</span>

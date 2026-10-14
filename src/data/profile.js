@@ -44,7 +44,7 @@ export const nav = [
 ]
 
 export const contactInfo = [
-  { label: 'EMAIL', value: 'EMAIL' },
+  { label: 'EMAIL', value: 'Add your email address' },
   { label: 'LOCATION', value: 'Douala, Cameroon (ENSPD)' },
   { label: 'AVAILABILITY', value: 'Open to internships & freelance' },
 ]
