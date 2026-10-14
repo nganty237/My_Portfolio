@@ -17,7 +17,7 @@ app.innerHTML = Page({
     id: 'selected-work',
     title: 'Selected Work',
     actions: Button({ label: 'View All Work', href: '/projects.html', variant: 'outline-small', icon: 'arrow-up-right' }),
-    className: 'border-t border-border',
+    className: '',
     children: ProjectGrid({ projects }),
   })}${Principles()}`,
 })

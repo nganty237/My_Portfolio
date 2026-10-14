@@ -1,5 +1,5 @@
 // ← remplacer par l'export Figma
-import heroGrid from '../../assets/hero-grid.svg'
+import heroBackground from '../../assets/Grillage bleu-blanc.svg'
 import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
 
@@ -16,13 +16,12 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [] }) 
     </a>
   `).join('') ?? ''
 
-  const backgroundSource = heroGrid?.src ?? heroGrid ?? ''
+  const backgroundSource = heroBackground?.src ?? heroBackground ?? ''
 
   return `
-    <section class="relative isolate overflow-hidden">
-      ${backgroundSource ? `<img class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-80" src="${backgroundSource}" alt="" aria-hidden="true" />` : ''}
-      <div class="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-t from-white to-transparent" aria-hidden="true"></div>
-      <div class="mx-auto grid max-w-6xl content-center gap-6 px-6 py-16 md:py-20">
+    <section class="hero-section relative isolate overflow-hidden">
+      ${backgroundSource ? `<img class="hero-background pointer-events-none absolute inset-0 h-full w-full object-cover" src="${backgroundSource}" alt="" aria-hidden="true" />` : ''}
+      <div class="relative z-10 mx-auto grid max-w-6xl content-center gap-5 px-6 py-14 md:py-18">
         <p class="label text-muted">${eyebrow ?? ''}</p>
         <h1 class="display max-w-5xl text-ink">${headlineMarkup}</h1>
         <p class="body-large max-w-2xl text-muted">${subtitle ?? ''}</p>

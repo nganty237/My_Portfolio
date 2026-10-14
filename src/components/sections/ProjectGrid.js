@@ -8,7 +8,7 @@ const filterOptions = [
 ]
 
 const activeFilterClasses = ['border-accent', 'bg-accent-subtle', 'text-accent']
-const inactiveFilterClasses = ['border-border', 'bg-white', 'text-ink']
+const inactiveFilterClasses = ['border-border', 'bg-background', 'text-ink']
 
 export function ProjectGrid({ projects = [], filters = true, limit }) {
   const visibleProjects = typeof limit === 'number' ? projects.slice(0, limit) : projects
@@ -16,7 +16,7 @@ export function ProjectGrid({ projects = [], filters = true, limit }) {
     ? `
       <div class="mb-5 flex flex-wrap gap-2" data-project-filters aria-label="Filtrer les projets">
         ${filterOptions.map(({ label, value }, index) => `
-          <button class="rounded-full border px-4 py-2 text-sm transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink ${index === 0 ? activeFilterClasses.join(' ') : inactiveFilterClasses.join(' ')}" type="button" data-filter="${value}" aria-pressed="${index === 0}">
+          <button class="rounded-full border px-3.5 py-2 text-sm transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink ${index === 0 ? activeFilterClasses.join(' ') : inactiveFilterClasses.join(' ')}" type="button" data-filter="${value}" aria-pressed="${index === 0}">
             ${label}
           </button>
         `).join('')}
@@ -62,7 +62,7 @@ export function initProjectFilters() {
       filterButton.classList.toggle('bg-accent-subtle', isActive)
       filterButton.classList.toggle('text-accent', isActive)
       filterButton.classList.toggle('border-border', !isActive)
-      filterButton.classList.toggle('bg-white', !isActive)
+      filterButton.classList.toggle('bg-background', !isActive)
       filterButton.classList.toggle('text-ink', !isActive)
     })
 
