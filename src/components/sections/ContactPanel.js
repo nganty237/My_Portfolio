@@ -6,16 +6,17 @@ const inputClasses = 'mt-1.5 w-full rounded-md border border-border bg-surface-s
 export function ContactPanel() {
   return `
     <section class="mx-auto grid max-w-5xl grid-cols-1 gap-y-6 px-6 pb-24 pt-12 md:grid-cols-2 md:gap-x-14 md:gap-y-0 md:pb-32 md:pt-16" aria-labelledby="contact-title">
-      <header class="max-w-3xl md:col-start-1 md:row-start-1" data-page-header>
+      <div class="md:col-start-1 md:row-start-1">
+      <header class="max-w-3xl" data-page-header>
         <p class="mb-3 text-[0.625rem] font-medium tracking-wide text-accent">GET IN TOUCH</p>
         <h1 class="m-0 font-display text-[2.5rem] font-normal leading-tight tracking-[-0.035em] text-ink md:text-[2.75rem]" id="contact-title">Let's start a conversation</h1>
       </header>
 
-      <p class="max-w-2xl text-xs leading-5 text-muted md:col-start-1 md:row-start-2 md:mt-3 md:text-[0.8125rem]">Have a role, a project or an idea in mind? I&rsquo;d love to hear about it.<br class="hidden sm:block" /> Let&rsquo;s talk about what we could build together.</p>
+      <p class="mt-3 max-w-2xl text-xs leading-5 text-muted md:text-[0.8125rem]">Have a role, a project or an idea in mind? I&rsquo;d love to hear about it.<br class="hidden sm:block" /> Let&rsquo;s talk about what we could build together.</p>
 
-      <aside class="md:col-start-1 md:row-start-3 md:mt-8" aria-label="Contact information" data-contact-aside>
+      <aside class="mt-4" aria-label="Contact information" data-contact-aside>
           ${contactInfo.map((item) => `
-            <div class="border-b border-border py-3.5">
+            <div class="border-b border-border py-2.5">
               ${item.label === 'AVAILABILITY'
                 ? `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><span class="inline-flex items-center gap-2 text-xs text-accent"><span class="size-1.5 rounded-full bg-accent" aria-hidden="true"></span>${item.value}</span></div>`
                 : item.label === 'EMAIL'
@@ -24,8 +25,9 @@ export function ContactPanel() {
             </div>
           `).join('')}
       </aside>
+      </div>
 
-      <div class="md:col-start-2 md:row-start-2 md:row-span-2 md:mt-3">
+      <div class="md:col-start-2 md:row-start-1">
         <h2 class="m-0 text-base font-semibold leading-6 text-ink">Send a Message</h2>
         <p class="mt-2 text-xs leading-5 text-muted">Tell me a little about your project or opportunity.</p>
         <form class="mt-4 space-y-3.5" data-contact-form novalidate>
