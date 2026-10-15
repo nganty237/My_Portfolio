@@ -5,7 +5,6 @@ import { initNavbar } from '../components/layout/Navbar.js'
 import { ContactPanel } from '../components/sections/ContactPanel.js'
 import { sendMessage } from '../services/contactService.js'
 import { validateContact } from '../utils/validators.js'
-import { initPageAnimations } from '../utils/animations.js'
 
 const app = document.querySelector('#app')
 
@@ -15,7 +14,6 @@ app.innerHTML = Page({
 
 initNavbar()
 initCtaFooter()
-initPageAnimations()
 
 const form = document.querySelector('[data-contact-form]')
 const submitButton = form.querySelector('[data-submit-button]')

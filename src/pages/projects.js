@@ -4,7 +4,6 @@ import { Page } from '../components/layout/Page.js'
 import { initNavbar } from '../components/layout/Navbar.js'
 import { ProjectGrid, initProjectFilters } from '../components/sections/ProjectGrid.js'
 import { Section } from '../components/ui/Section.js'
-import { initPageAnimations } from '../utils/animations.js'
 import projects from '../data/projects.js'
 
 const app = document.querySelector('#app')
@@ -20,4 +19,3 @@ app.innerHTML = Page({
 initNavbar()
 initCtaFooter()
 initProjectFilters()
-initPageAnimations()

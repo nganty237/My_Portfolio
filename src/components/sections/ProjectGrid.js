@@ -1,5 +1,4 @@
 import { on, qs, qsa } from '../../utils/dom.js'
-import { animateFilterTransition } from '../../utils/animations.js'
 import { ProjectCard } from './ProjectCard.js'
 
 const filterOptions = [
@@ -10,6 +9,10 @@ const filterOptions = [
 
 const activeFilterClasses = ['border-accent', 'bg-accent-subtle', 'text-accent']
 const inactiveFilterClasses = ['border-border', 'bg-background', 'text-ink']
+
+function loadAnimations() {
+  return import('../../utils/animations.js')
+}
 
 export function ProjectGrid({ projects = [], filters = true, limit }) {
   const visibleProjects = typeof limit === 'number' ? projects.slice(0, limit) : projects
@@ -55,7 +58,9 @@ export function initProjectFilters() {
     const leavingCards = cards.filter((card) => !card.classList.contains('hidden') && !visibleCards.includes(card))
     const enteringCards = cards.filter((card) => card.classList.contains('hidden') && visibleCards.includes(card))
 
-    animateFilterTransition({ leavingCards, enteringCards })
+    loadAnimations().then(({ animateFilterTransition }) => {
+      animateFilterTransition({ leavingCards, enteringCards })
+    })
 
     qsa('[data-filter]', grid).forEach((filterButton) => {
       const isActive = filterButton === button

@@ -3,7 +3,6 @@ import { initCtaFooter } from '../components/layout/CtaFooter.js'
 import { Page } from '../components/layout/Page.js'
 import { initNavbar } from '../components/layout/Navbar.js'
 import { ProjectDetail } from '../components/sections/ProjectDetail.js'
-import { initPageAnimations } from '../utils/animations.js'
 import projects from '../data/projects.js'
 
 const app = document.querySelector('#app')
@@ -21,4 +20,3 @@ app.innerHTML = Page({
 
 initNavbar()
 initCtaFooter()
-initPageAnimations()

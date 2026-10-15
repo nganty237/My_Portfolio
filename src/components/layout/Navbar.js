@@ -2,8 +2,11 @@ import { nav, name } from '../../data/profile.js'
 // ← remplacer par l'export Figma
 import logoNg from '../../assets/logo-ng.svg'
 import { on, qs, qsa } from '../../utils/dom.js'
-import { animateMobileMenu, animateThemeToggle } from '../../utils/animations.js'
 import { Icon } from '../ui/Icon.js'
+
+function loadAnimations() {
+  return import('../../utils/animations.js')
+}
 
 function navigationLinks(className = '') {
   const currentPath = location.pathname === '/' ? '/index.html' : location.pathname
@@ -32,7 +35,7 @@ export function Navbar() {
         </nav>
 
         <div class="flex items-center gap-3">
-          <button class="hidden size-10 items-center justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:inline-flex" type="button" data-theme-toggle aria-pressed="false" aria-label="Activer le mode sombre">
+          <button class="hidden size-10 items-center cursor-pointer justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:inline-flex" type="button" data-theme-toggle aria-pressed="false" aria-label="Activer le mode sombre">
             <span data-theme-icon>${Icon('moon')}</span>
           </button>
           <button class="inline-flex size-10 items-center justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:hidden" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Ouvrir le menu">
@@ -41,7 +44,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden px-6 py-4" data-menu>
+      <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden overflow-y-auto px-6 py-4" data-menu aria-hidden="true">
         <div class="flex items-center justify-between">
           <a class="font-display text-2xl text-ink" href="/index.html">${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : 'NG.'}</a>
           <button class="inline-flex size-10 items-center justify-center rounded-full text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-menu-close aria-label="Fermer le menu">
@@ -51,7 +54,7 @@ export function Navbar() {
         <nav class="mt-14 grid gap-5 text-sm font-sans" aria-label="Navigation mobile">
           ${navigationLinks('transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
         </nav>
-        <button class="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="Activer le mode sombre">
+        <button class="mt-8 inline-flex cursor-pointer items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="Activer le mode sombre">
           <span data-theme-icon>${Icon('moon', { size: 15 })}</span>
           <span data-theme-label>Dark mode</span>
         </button>
@@ -96,7 +99,7 @@ export function initNavbar() {
 
     if (persist) {
       localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light')
-      animateThemeToggle(isDark)
+      loadAnimations().then(({ animateThemeToggle }) => animateThemeToggle(isDark))
     }
   }
 
@@ -107,14 +110,18 @@ export function initNavbar() {
     setTheme(!document.documentElement.hasAttribute('data-theme'), true)
   })
 
+  loadAnimations().then(({ initPageAnimations }) => initPageAnimations())
+
   if (!menu || !toggle) {
     return
   }
 
   const setMenuState = (isOpen) => {
     toggle.setAttribute('aria-expanded', String(isOpen))
+    header?.classList.toggle('is-menu-open', isOpen)
+    menu.setAttribute('aria-hidden', String(!isOpen))
     document.body.classList.toggle('overflow-hidden', isOpen)
-    animateMobileMenu(menu, isOpen)
+    loadAnimations().then(({ animateMobileMenu }) => animateMobileMenu(menu, isOpen))
   }
 
   on(document, 'click', '[data-menu-toggle]', () => {

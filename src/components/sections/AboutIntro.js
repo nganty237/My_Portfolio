@@ -13,7 +13,7 @@ export function AboutIntro({ about = {}, bio = [] }) {
     .join('')
   const bioMarkup = bio.map((paragraph) => `<p>${paragraph}</p>`).join('')
   const imageMarkup = image
-    ? `<img class="h-full w-full object-cover" src="${image}" alt="${imageAlt}" loading="lazy" width="1200" height="900" />`
+    ? `<img class="h-full w-full object-cover" src="${image}" alt="${imageAlt}" loading="eager" fetchpriority="high" width="1200" height="900" />`
     : `<div class="flex min-h-80 h-full items-center justify-center bg-surface-strong px-6 text-center text-muted" role="img" aria-label="${imageAlt}">Photo à venir</div>`
 
   return `
