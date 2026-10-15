@@ -45,7 +45,7 @@ export const projects = [
     stack: ['Node.js', 'Express', 'PostgreSQL'],
     image: '',
     alt: 'Task Manager REST API project',
-    links: [{ label: 'GitHub repo', href: 'https://github.com/gabrielnganty' }],
+    links: [{ label: 'GitHub profile', href: 'https://github.com/nganty237' }],
     highlights: [{ title: 'Clear API boundaries', description: 'Routes, validation and persistence are separated so each part stays easier to change.' }],
   },
   {
@@ -61,7 +61,7 @@ export const projects = [
     stack: ['JavaScript', 'Vite', 'Tailwind CSS'],
     image: '',
     alt: 'Portfolio website project',
-    links: [{ label: 'GitHub repo', href: 'https://github.com/gabrielnganty' }],
+    links: [{ label: 'GitHub profile', href: 'https://github.com/nganty237' }],
     highlights: [{ title: 'Reusable rendering', description: 'Shared components keep the pages consistent without introducing a framework.' }],
   },
 ]

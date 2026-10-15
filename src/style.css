@@ -198,7 +198,118 @@ textarea {
   overflow-wrap: anywhere;
 }
 
+.form-status {
+  position: fixed;
+  z-index: 100;
+  top: calc(5rem + env(safe-area-inset-top, 0px));
+  right: max(1.25rem, env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: max-content;
+  max-width: min(26rem, calc(100vw - 2.5rem));
+  margin: 0;
+  padding: 0.875rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px rgb(15 23 42 / 14%);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-0.5rem);
+}
+
+.form-status::before {
+  display: grid;
+  flex: 0 0 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.form-status.is-success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.form-status.is-success::before {
+  content: "✓";
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.form-status.is-error {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.form-status.is-error::before {
+  content: "!";
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.form-status.is-visible {
+  animation: form-status-enter 220ms ease-out forwards;
+  pointer-events: auto;
+}
+
+.form-status.is-hiding {
+  animation: form-status-exit 220ms ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes form-status-enter {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes form-status-exit {
+  to { opacity: 0; transform: translateY(-0.5rem); }
+}
+
+:root[data-theme='dark'] .form-status.is-success {
+  border-color: #166534;
+  background: #052e16;
+  color: #dcfce7;
+}
+
+:root[data-theme='dark'] .form-status.is-success::before {
+  background: #14532d;
+  color: #86efac;
+}
+
+:root[data-theme='dark'] .form-status.is-error {
+  border-color: #7f1d1d;
+  background: #450a0a;
+  color: #fee2e2;
+}
+
+:root[data-theme='dark'] .form-status.is-error::before {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-status.is-visible,
+  .form-status.is-hiding {
+    animation-duration: 1ms;
+  }
+}
+
 @media (max-width: 640px) {
+  .form-status {
+    top: calc(5rem + env(safe-area-inset-top, 0px));
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    max-width: calc(100vw - 2rem);
+  }
+
   .site-footer [data-footer-cta] {
     padding-inline: 1.25rem;
   }

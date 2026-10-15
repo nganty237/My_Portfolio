@@ -3,8 +3,6 @@ import { on } from '../../utils/dom.js'
 import { Icon } from '../ui/Icon.js'
 
 export function CtaFooter() {
-  const linkedIn = socials.find(({ icon }) => icon === 'linkedin')
-
   return `
     <footer class="site-footer">
       <section class="mx-auto max-w-5xl border-t border-border px-6 py-10 sm:py-12 md:py-14" data-footer-cta>
@@ -13,7 +11,7 @@ export function CtaFooter() {
           <a class="mt-2 inline-flex max-w-full flex-wrap items-center gap-x-3 gap-y-1 heading-2 text-ink transition hover:text-accent" href="/contact.html">View my <span class="text-accent">story</span>, get in touch <span aria-hidden="true">👇</span></a>
           <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-ink sm:mt-8">
             <a class="hover:text-accent" href="/contact.html">Email ${Icon('arrow-up-right', { size: 14, className: 'inline' })}</a>
-            ${linkedIn ? `<a class="hover:text-accent" href="${linkedIn.href}" target="_blank" rel="noreferrer">LinkedIn ${Icon('arrow-up-right', { size: 14, className: 'inline' })}</a>` : ''}
+            ${socials.map(({ label, href, icon }) => `<a class="inline-flex items-center gap-1.5 hover:text-accent" href="${href}" target="_blank" rel="noreferrer" aria-label="${label}" title="${label}">${Icon(icon, { size: 15 })}${label}</a>`).join('')}
           </div>
         </div>
       </section>

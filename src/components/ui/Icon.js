@@ -14,6 +14,8 @@ const icons = {
   terminal: '<path d="m4 17 6-5-6-5M12 19h8" />',
   server: '<rect width="18" height="6" x="3" y="3" rx="1" /><rect width="18" height="6" x="3" y="15" rx="1" /><path d="M7 6h.01M7 18h.01" />',
   'arrow-up-circle': '<circle cx="12" cy="12" r="9" /><path d="m16 12-4-4-4 4M12 16V8" />',
+  award: '<circle cx="12" cy="9" r="6" /><path d="m8.5 14.5-1.5 7 5-3 5 3-1.5-7" />',
+  mail: '<rect width="20" height="14" x="2" y="5" rx="2" /><path d="m2.5 7 9.5 6 9.5-6" />',
 }
 
 export function Icon(name, { size = 20, className = '' } = {}) {

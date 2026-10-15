@@ -19,6 +19,8 @@ const form = document.querySelector('[data-contact-form]')
 const submitButton = form.querySelector('[data-submit-button]')
 const buttonLabel = form.querySelector('[data-button-label]')
 const status = form.querySelector('[data-form-status]')
+let statusTimeout
+let statusHideTimeout
 
 function clearError(fieldName) {
   const input = form.elements[fieldName]
@@ -29,20 +31,40 @@ function clearError(fieldName) {
 }
 
 function showStatus(message, isSuccess) {
+  window.clearTimeout(statusTimeout)
+  window.clearTimeout(statusHideTimeout)
   status.textContent = message
-  status.classList.remove('hidden', 'text-red-700', 'text-accent')
-  status.classList.add(isSuccess ? 'text-accent' : 'text-red-700')
+  status.classList.remove('hidden', 'is-success', 'is-error', 'is-hiding')
+  status.classList.add('form-status', isSuccess ? 'is-success' : 'is-error', 'is-visible')
+
+  if (isSuccess) {
+    statusTimeout = window.setTimeout(() => {
+      status.classList.add('is-hiding')
+      status.classList.remove('is-visible')
+      statusHideTimeout = window.setTimeout(() => {
+        status.classList.add('hidden')
+        status.classList.remove('is-hiding')
+      }, 220)
+    }, 4500)
+  }
+}
+
+function hideStatus() {
+  window.clearTimeout(statusTimeout)
+  window.clearTimeout(statusHideTimeout)
+  status.classList.add('hidden')
+  status.classList.remove('is-visible', 'is-hiding', 'is-success', 'is-error')
 }
 
 form.addEventListener('input', (event) => {
   const fieldName = event.target.name
   if (['name', 'email', 'message'].includes(fieldName)) clearError(fieldName)
-  status.classList.add('hidden')
+  hideStatus()
 })
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault()
-  status.classList.add('hidden')
+  hideStatus()
 
   const values = Object.fromEntries(new FormData(form))
   const { valid, errors } = validateContact(values)

@@ -19,7 +19,7 @@ export function ContactPanel() {
               ${item.label === 'AVAILABILITY'
                 ? `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><span class="inline-flex items-center gap-2 text-xs text-accent"><span class="size-1.5 rounded-full bg-accent" aria-hidden="true"></span>${item.value}</span></div>`
                 : item.label === 'EMAIL'
-                  ? `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><span class="text-xs text-ink">[${item.value}] <span aria-hidden="true">&#8599;</span></span></div>`
+                  ? `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><a class="inline-flex items-center gap-1.5 text-xs text-ink transition hover:text-accent" href="mailto:${item.value}">${item.value}<span aria-hidden="true">&#8599;</span></a></div>`
                   : `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><span class="text-xs text-ink">${item.value}</span></div>`}
             </div>
           `).join('')}

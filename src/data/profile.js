@@ -31,9 +31,9 @@ export const bio = [
 export const cvUrl = '/cv.pdf'
 
 export const socials = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/gabriel-nganty', icon: 'linkedin' },
-  { label: 'Facebook', href: 'https://www.facebook.com/gabriel.nganty', icon: 'facebook' },
-  { label: 'GitHub', href: 'https://github.com/gabrielnganty', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/anicet-nganty-bikele', icon: 'linkedin' },
+  { label: 'Facebook', href: 'https://web.facebook.com/gabriel.nganty.2025?locale=fr_FR', icon: 'facebook' },
+  { label: 'GitHub', href: 'https://github.com/nganty237', icon: 'github' },
 ]
 
 export const nav = [
@@ -44,7 +44,7 @@ export const nav = [
 ]
 
 export const contactInfo = [
-  { label: 'EMAIL', value: 'Add your email address' },
+  { label: 'EMAIL', value: 'surflinkayos@gmail.com' },
   { label: 'LOCATION', value: 'Douala, Cameroon (ENSPD)' },
   { label: 'AVAILABILITY', value: 'Open to internships & freelance' },
 ]

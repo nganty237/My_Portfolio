@@ -179,6 +179,50 @@ export function initPageAnimations() {
     }
   }
 
+  // 6b. Certifications section scroll reveal (About page)
+  const certificationsSection = document.querySelector('#certifications')
+  if (certificationsSection) {
+    const header = certificationsSection.querySelector('header, .grid:first-child')
+    const cards = certificationsSection.querySelectorAll('article')
+
+    if (header) {
+      gsap.fromTo(
+        header,
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.45,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: certificationsSection,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      )
+    }
+
+    if (cards.length > 0) {
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.45,
+          stagger: 0.05,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: certificationsSection,
+            start: 'top 82%',
+            once: true,
+          },
+        }
+      )
+    }
+  }
+
   // 7. About page photo and content reveal
   const aboutSection = document.querySelector('[data-about-section]')
   if (aboutSection) {
