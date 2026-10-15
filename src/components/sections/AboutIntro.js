@@ -1,6 +1,6 @@
 import { Icon } from '../ui/Icon.js'
 
-export function AboutIntro({ about = {}, bio = [], contactInfo = [], cvUrl = '' }) {
+export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo = [], cvUrl = '' }) {
   const {
     eyebrow = 'A LITTLE ABOUT ME',
     title = [],
@@ -21,10 +21,27 @@ export function AboutIntro({ about = {}, bio = [], contactInfo = [], cvUrl = '' 
     ? `<p class="body-large text-ink">${lead}</p>`
     : ''
   const restMarkup = rest.map((paragraph) => `<p>${paragraph}</p>`).join('')
+  const interestsMarkup = interests.map(({ icon, title, description }) => `
+    <li class="grid content-start gap-1 rounded-lg border border-border bg-card p-4 shadow-xs">
+      <div class="flex items-center gap-3">
+        <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border/80 bg-surface-strong text-accent shadow-xs">
+          ${Icon(icon, { size: 18 })}
+        </span>
+        <h3 class="text-base font-semibold text-ink">${title}</h3>
+      </div>
+      <p class="text-sm leading-relaxed text-muted">${description}</p>
+    </li>
+  `).join('')
+  const interestsSection = interestsMarkup
+    ? `<section class="mt-8" aria-labelledby="about-interests-title">
+        <h2 id="about-interests-title" class="heading-3">Outside of work</h2>
+        <ul class="mt-4 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2">${interestsMarkup}</ul>
+      </section>`
+    : ''
 
   const imageMarkup = image
     ? `<img class="h-full w-full object-cover object-center" src="${image}" alt="${imageAlt}" loading="eager" fetchpriority="high" width="1200" height="1500" />`
-    : `<div class="flex h-full min-h-80 items-center justify-center bg-surface-strong px-6 text-center text-muted" role="img" aria-label="${imageAlt}">Photo à venir</div>`
+    : `<div class="flex h-full min-h-80 items-center justify-center bg-surface-strong px-6 text-center text-muted" role="img" aria-label="${imageAlt}">Photo coming soon</div>`
 
   return `
     <section class="mx-auto max-w-6xl px-6 py-16 md:py-24" data-about-section>
@@ -51,9 +68,10 @@ export function AboutIntro({ about = {}, bio = [], contactInfo = [], cvUrl = '' 
               ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="mailto:${email}">${Icon('mail', { size: 16 })}${email}</a>`
               : ''}
             ${cvUrl
-              ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="${cvUrl}" target="_blank" rel="noreferrer">${Icon('download', { size: 16 })}Download CV</a>`
+              ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="${cvUrl}" download="CV_NGANTY_BIKELE.pdf">${Icon('download', { size: 16 })}Download CV</a>`
               : ''}
           </div>
+          ${interestsSection}
         </div>
       </div>
     </section>

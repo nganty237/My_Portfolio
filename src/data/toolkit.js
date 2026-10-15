@@ -1,19 +1,23 @@
 export const toolkit = [
   {
+    group: 'Frontend',
+    icon: 'code',
+    items: ['TypeScript', 'JavaScript', 'React', 'Angular'],
+  },
+  {
     group: 'Backend',
-    items: ['Node.js', 'NestJS', 'Express', 'REST APIs'],
+    icon: 'server',
+    items: ['Node.js', 'Express.js'],
   },
   {
     group: 'Database',
-    items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis'],
+    icon: 'database',
+    items: ['MySQL', 'PostgreSQL'],
   },
   {
-    group: 'DevOps',
-    items: ['Docker', 'Git', 'CI/CD', 'Linux'],
-  },
-  {
-    group: 'Frontend',
-    items: ['JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
+    group: 'UX/UI Design',
+    icon: 'palette',
+    items: ['Figma'],
   },
 ]
 

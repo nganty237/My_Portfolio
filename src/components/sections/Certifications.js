@@ -1,10 +1,10 @@
 import { certifications as defaultCertifications } from '../../data/certifications.js'
+import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
 import { Section } from '../ui/Section.js'
-import { Tag } from '../ui/Tag.js'
 
 export function Certifications({ certifications = defaultCertifications } = {}) {
-  const items = certifications.map(({ title, issuer, year, description, skills = [], url }) => {
+  const items = certifications.map(({ title, issuer, date, url }) => {
     const heading = url
       ? `<a class="inline-flex items-start gap-1.5 text-ink transition hover:text-accent" href="${url}" target="_blank" rel="noreferrer">${title}${Icon('arrow-up-right', { size: 14, className: 'mt-1 shrink-0' })}</a>`
       : title
@@ -15,14 +15,13 @@ export function Certifications({ certifications = defaultCertifications } = {}) 
           <span class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border/80 bg-surface-strong text-accent shadow-xs transition-colors duration-200 group-hover:border-accent/40">
             ${Icon('award', { size: 18 })}
           </span>
-          ${year ? `<span class="label text-muted">${year}</span>` : ''}
+          ${date ? `<span class="label text-muted">${date}</span>` : ''}
         </div>
         <div class="grid gap-1">
           <h3 class="text-base font-semibold leading-6 text-ink">${heading}</h3>
           ${issuer ? `<p class="text-xs font-medium tracking-wide text-accent">${issuer}</p>` : ''}
         </div>
-        ${description ? `<p class="text-sm leading-relaxed text-muted">${description}</p>` : ''}
-        ${skills.length > 0 ? `<div class="mt-0.5 flex flex-wrap gap-1.5">${skills.map((skill) => Tag(skill)).join('')}</div>` : ''}
+        ${url ? `<div class="mt-1">${Button({ label: 'Verify Certificate', href: url, variant: 'outline', icon: 'arrow-up-right', attrs: 'target="_blank" rel="noopener noreferrer"' })}</div>` : ''}
       </article>
     `
   }).join('')
@@ -30,7 +29,7 @@ export function Certifications({ certifications = defaultCertifications } = {}) 
   return Section({
     id: 'certifications',
     className: '',
-    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">Certifications &amp; training</h2><p class="body text-muted">The programs and credentials that shaped how I build software.</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
+    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">Certifications &amp; Training</h2><p class="body text-muted">Certifications completed through Meta and Google on Coursera.</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
   })
 }
 

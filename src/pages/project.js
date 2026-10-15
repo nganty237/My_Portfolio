@@ -10,7 +10,11 @@ const params = new URLSearchParams(location.search)
 const slug = params.get('slug')
 const projectIndex = projects.findIndex(({ id }) => id === slug)
 const project = projectIndex === -1 ? null : projects[projectIndex]
-const nextProject = project ? projects[(projectIndex + 1) % projects.length] : null
+const nextProject = project
+  ? project.id === 'campuscart'
+    ? projects.find(({ id }) => id === 'formuloo-compta')
+    : projects[(projectIndex + 1) % projects.length]
+  : null
 
 document.title = project ? `${project.title} · Gabriel Nganty` : 'Projet introuvable · Gabriel Nganty'
 

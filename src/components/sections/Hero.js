@@ -24,7 +24,7 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [], ph
       ${backgroundSource ? `<img class="hero-background pointer-events-none absolute inset-0 h-full w-full object-cover" src="${backgroundSource}" alt="" aria-hidden="true" data-hero-bg />` : ''}
       <div class="relative z-10 mx-auto grid max-w-6xl content-center gap-5 px-6 py-14 md:py-18">
         <div class="flex items-center justify-between gap-4" data-hero-item>
-          <p class="label text-muted">${eyebrow ?? ''}</p>
+          <p class="label hero-eyebrow text-muted">${eyebrow ?? ''}</p>
           ${photoSource ? `
             <div class="relative shrink-0">
               <div class="size-14 sm:size-16 md:size-20 overflow-hidden rounded-full border-2 border-border bg-surface-strong shadow-md ring-2 ring-accent/20 transition-transform duration-300 hover:scale-105 hover:ring-accent/40">
@@ -36,8 +36,8 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [], ph
         <h1 class="display max-w-5xl text-ink" data-hero-item>${headlineMarkup}</h1>
         <p class="body-large max-w-2xl text-muted" data-hero-item>${subtitle ?? ''}</p>
         <div class="flex flex-wrap items-center gap-5" data-hero-item>
-          ${Button({ label: 'Download CV', href: cvUrl ?? '#', variant: 'outline', icon: 'download' })}
-          <div class="flex items-center gap-2" aria-label="Réseaux sociaux">
+          ${Button({ label: 'Download CV', href: cvUrl ?? '#', variant: 'outline', icon: 'download', attrs: 'download="CV_NGANTY_BIKELE.pdf"' })}
+          <div class="flex items-center gap-2" aria-label="Social media">
             ${socialLinks}
           </div>
         </div>

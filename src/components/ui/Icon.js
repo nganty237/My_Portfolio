@@ -16,6 +16,13 @@ const icons = {
   'arrow-up-circle': '<circle cx="12" cy="12" r="9" /><path d="m16 12-4-4-4 4M12 16V8" />',
   award: '<circle cx="12" cy="9" r="6" /><path d="m8.5 14.5-1.5 7 5-3 5 3-1.5-7" />',
   mail: '<rect width="20" height="14" x="2" y="5" rx="2" /><path d="m2.5 7 9.5 6 9.5-6" />',
+  swimming: '<path d="M2 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0 4 2 6 0M2 21c2-2 4-2 6 0s4 2 6 0 4-2 6 0 4 2 6 0" /><circle cx="7" cy="5" r="2" /><path d="m9 9 3 2 3-2 4 1M10 11l-3 3-3-1" />',
+  running: '<circle cx="14" cy="4" r="2" /><path d="m7 21 3-6 3 2 3-5M7 10l4-2 3 2 4 1M10 15l-3-2-3 2M13 17l3 4" />',
+  music: '<path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />',
+  football: '<circle cx="12" cy="12" r="9" /><path d="m12 8 2.5 1.8-1 3h-3l-1-3L12 8Zm0 0V3m2.5 6.8 4.7-1.5M13.5 12.8l2.9 4.1m-5.4-4.1-2.9 4.1M9.5 9.8 4.8 8.3m5.7 8.7-2.8 3.5m8.7-3.6 2.8 3.5" />',
+  code: '<path d="m8 17-5-5 5-5m8 10 5-5-5-5m-3 12 2-14" />',
+  database: '<ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3" />',
+  palette: '<path d="M12 3a9 9 0 1 0 0 18h1.2a2.3 2.3 0 0 0 1.7-3.9 1.8 1.8 0 0 1 1.3-3.1h1.3A3.5 3.5 0 0 0 21 10.5C21 6.4 17 3 12 3Z" /><circle cx="7.5" cy="10" r="1" /><circle cx="11" cy="7" r="1" /><circle cx="15.5" cy="8" r="1" />',
 }
 
 export function Icon(name, { size = 20, className = '' } = {}) {

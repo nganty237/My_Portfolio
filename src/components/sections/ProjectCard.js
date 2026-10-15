@@ -7,6 +7,7 @@ export function ProjectCard({
   title,
   category = 'Project',
   description = '',
+  cardDescription = '',
   tags = [],
   image = '',
   alt = '',
@@ -28,7 +29,7 @@ export function ProjectCard({
       </div>
       <div class="flex flex-1 flex-col p-5">
         <h2 class="heading-3 transition-colors duration-200 group-hover:text-accent">${title}</h2>
-        <p class="mt-2 text-sm leading-relaxed text-muted">${description}</p>
+        <p class="mt-2 text-sm leading-relaxed text-muted">${cardDescription || description}</p>
         <div class="mt-4 flex flex-wrap gap-1.5">${tags.map((tag) => Tag(tag)).join('')}</div>
         <div class="mt-4">${Button({ label: 'More read', href: `/project.html?slug=${encodeURIComponent(id)}`, variant: 'outline-small', icon: 'arrow-up-right' })}</div>
       </div>
