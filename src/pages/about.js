@@ -5,6 +5,7 @@ import { initNavbar } from '../components/layout/Navbar.js'
 import { AboutIntro } from '../components/sections/AboutIntro.js'
 import { Principles } from '../components/sections/Principles.js'
 import { Toolkit } from '../components/sections/Toolkit.js'
+import { initPageAnimations } from '../utils/animations.js'
 import profile from '../data/profile.js'
 import toolkit from '../data/toolkit.js'
 
@@ -16,3 +17,4 @@ app.innerHTML = Page({
 
 initNavbar()
 initCtaFooter()
+initPageAnimations()

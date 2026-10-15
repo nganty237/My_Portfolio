@@ -46,7 +46,7 @@ export function ProjectDetail({ project, nextProject }) {
     }))
     .join('')
   const highlightsMarkup = highlights.map(({ title: highlightTitle, description: highlightDescription }) => `
-    <article class="rounded-xl bg-surface p-5">
+    <article class="rounded-lg border border-border bg-card p-5 shadow-xs transition-all duration-200 hover:shadow-sm">
       <h3 class="font-semibold text-ink">${highlightTitle}</h3>
       <p class="mt-1.5 text-sm leading-relaxed text-muted">${highlightDescription}</p>
     </article>
@@ -63,18 +63,18 @@ export function ProjectDetail({ project, nextProject }) {
   return `
     <article class="mx-auto max-w-5xl px-6 py-8 md:py-12">
       <div>${Button({ label: 'All projects', href: '/projects.html', variant: 'outline', icon: 'arrow-left' })}</div>
-      <header class="mt-10 max-w-4xl md:mt-12">
+      <header class="mt-10 max-w-4xl md:mt-12" data-page-header>
         <p class="label text-accent">${eyebrow}</p>
         <h1 class="heading-2 mt-3">${title}</h1>
         <p class="body mt-4 max-w-3xl text-muted">${description}</p>
         <div class="mt-4 flex flex-wrap gap-2">${tagsMarkup}</div>
       </header>
 
-      <div class="mt-8 overflow-hidden rounded-xl bg-card md:mt-10">
+      <div class="mt-8 overflow-hidden rounded-xl border border-border bg-card md:mt-10" data-project-media>
         ${imageMarkup}
       </div>
 
-      <div class="mt-6 grid gap-5 border-y border-border py-5 sm:grid-cols-2 md:grid-cols-4">
+      <div class="mt-6 grid gap-5 border-y border-border py-5 sm:grid-cols-2 md:grid-cols-4" data-project-meta>
         ${MetaItem({ label: 'ROLE', value: role })}
         ${MetaItem({ label: 'YEAR', value: year })}
         ${MetaItem({ label: 'TYPE', value: type })}
@@ -83,7 +83,7 @@ export function ProjectDetail({ project, nextProject }) {
 
       ${linksMarkup ? `<div class="mt-5 flex flex-wrap gap-3">${linksMarkup}</div>` : ''}
 
-      <section class="mt-14 max-w-3xl">
+      <section class="mt-14 max-w-3xl" data-project-under-hood>
         <p class="label mb-4 text-muted">UNDER THE HOOD</p>
         <h2 class="heading-2">What makes this project work.</h2>
         <div class="mt-6 grid gap-4">${highlightsMarkup}</div>

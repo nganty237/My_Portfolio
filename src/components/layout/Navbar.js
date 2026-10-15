@@ -2,6 +2,7 @@ import { nav, name } from '../../data/profile.js'
 // ← remplacer par l'export Figma
 import logoNg from '../../assets/logo-ng.svg'
 import { on, qs, qsa } from '../../utils/dom.js'
+import { animateMobileMenu, animateThemeToggle } from '../../utils/animations.js'
 import { Icon } from '../ui/Icon.js'
 
 function navigationLinks(className = '') {
@@ -20,7 +21,7 @@ export function Navbar() {
   const logoSource = logoNg?.src ?? logoNg ?? ''
 
   return `
-    <header class="sticky top-0 z-40 bg-surface-strong/80 shadow-sm backdrop-blur-sm">
+    <header class="site-header sticky top-0 z-40 bg-transparent" data-site-header>
       <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a class="flex items-center gap-3 font-display text-2xl text-ink" href="/index.html" aria-label="${name}, retour à l'accueil">
           ${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : '<span>NG.</span>'}
@@ -60,9 +61,17 @@ export function Navbar() {
 }
 
 export function initNavbar() {
+  const header = qs('[data-site-header]')
   const menu = qs('[data-menu]')
   const toggle = qs('[data-menu-toggle]')
   const themeToggles = qsa('[data-theme-toggle]')
+
+  const updateHeaderBackground = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 8)
+  }
+
+  updateHeaderBackground()
+  window.addEventListener('scroll', updateHeaderBackground, { passive: true })
 
   const setTheme = (isDark, persist = false) => {
     if (isDark) {
@@ -87,6 +96,7 @@ export function initNavbar() {
 
     if (persist) {
       localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light')
+      animateThemeToggle(isDark)
     }
   }
 
@@ -102,9 +112,9 @@ export function initNavbar() {
   }
 
   const setMenuState = (isOpen) => {
-    menu.classList.toggle('hidden', !isOpen)
     toggle.setAttribute('aria-expanded', String(isOpen))
     document.body.classList.toggle('overflow-hidden', isOpen)
+    animateMobileMenu(menu, isOpen)
   }
 
   on(document, 'click', '[data-menu-toggle]', () => {

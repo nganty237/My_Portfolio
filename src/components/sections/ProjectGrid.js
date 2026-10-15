@@ -1,4 +1,5 @@
 import { on, qs, qsa } from '../../utils/dom.js'
+import { animateFilterTransition } from '../../utils/animations.js'
 import { ProjectCard } from './ProjectCard.js'
 
 const filterOptions = [
@@ -51,9 +52,10 @@ export function initProjectFilters() {
     const selectedCategory = button.dataset.filter
     const visibleCards = cards.filter((card) => selectedCategory === 'all' || card.dataset.category === selectedCategory)
 
-    cards.forEach((card) => {
-      card.classList.toggle('hidden', !visibleCards.includes(card))
-    })
+    const leavingCards = cards.filter((card) => !card.classList.contains('hidden') && !visibleCards.includes(card))
+    const enteringCards = cards.filter((card) => card.classList.contains('hidden') && visibleCards.includes(card))
+
+    animateFilterTransition({ leavingCards, enteringCards })
 
     qsa('[data-filter]', grid).forEach((filterButton) => {
       const isActive = filterButton === button

@@ -1,5 +1,5 @@
 export function Card({ children, className = '' }) {
-  return `<article class="bg-card p-5 shadow-sm transition-shadow duration-200 hover:shadow-md ${className}">${children}</article>`
+  return `<article class="bg-card border border-border rounded-xl p-5 shadow-xs transition-all duration-200 hover:shadow-sm ${className}">${children}</article>`
 }
 
 export default Card

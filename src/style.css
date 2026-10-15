@@ -10,7 +10,6 @@
   --color-surface-strong: var(--color-surface-strong);
   --color-accent-subtle: var(--color-accent-subtle);
   --color-card: var(--color-card);
-  --color-background-gradient: var(--color-background-gradient);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
 }
@@ -32,7 +31,7 @@
 }
 
 :root {
-  /* Palette claire actuelle, conservée pour garder le même rendu. */
+  /* Palette claire */
   --color-bg: #ffffff;
   --color-surface: rgb(23 35 51 / 4%);
   --color-border: rgb(23 35 51 / 10%);
@@ -42,14 +41,13 @@
   --color-accent: #315fc4;
   --color-hero-glow: transparent;
 
-  /* Alias gardés pour les classes Tailwind déjà utilisées par le site. */
+  /* Alias Tailwind */
   --color-ink: var(--color-text);
   --color-muted: var(--color-text-muted);
-  --color-background: #f7f8fa;
+  --color-background: #ffffff;
   --color-surface-strong: #ffffff;
-  --color-accent-subtle: rgb(23 35 51 / 8%);
-  --color-card: #eef0f3;
-  --color-background-gradient: #ffffff;
+  --color-accent-subtle: rgb(49 95 196 / 8%);
+  --color-card: #ffffff;
   --color-page-edge: #d9dde3;
   --font-display: "Instrument Serif", Georgia, serif;
   --font-sans: "Inter", Arial, sans-serif;
@@ -62,22 +60,23 @@
 }
 
 :root[data-theme='dark'] {
-  --color-bg: #171A2A;
-  --color-surface: #20243A;
-  --color-border: #343A55;
-  --color-grid: rgba(138, 164, 255, 0.08);
+  /* Palette sombre */
+  --color-bg: #0B0D17;
+  --color-surface: #141729;
+  --color-border: #262A40;
+  --color-grid: rgba(138, 164, 255, 0.06);
   --color-text: #E8EAF3;
-  --color-text-muted: #A7AEC4;
+  --color-text-muted: #9AA0B8;
   --color-accent: #8AA4FF;
-  --color-hero-glow: rgba(99, 102, 241, 0.2);
+  --color-hero-glow: rgba(99, 102, 241, 0.18);
 
+  /* Alias Tailwind */
   --color-ink: var(--color-text);
   --color-muted: var(--color-text-muted);
   --color-background: var(--color-bg);
   --color-surface-strong: var(--color-surface);
   --color-accent-subtle: var(--color-grid);
   --color-card: var(--color-surface);
-  --color-background-gradient: var(--color-surface);
   --color-page-edge: var(--color-bg);
 }
 
@@ -85,6 +84,13 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 5rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -104,34 +110,58 @@ h6 {
   font-family: var(--font-display);
 }
 
-p,
-nav,
 button,
 input,
 textarea {
-  font-family: var(--font-sans);
+  font-family: inherit;
 }
 
 #app {
   min-height: 100vh;
   width: 100%;
   margin: 0 auto;
-  background: var(--color-surface-strong);
+  background: linear-gradient(
+    135deg,
+    var(--color-surface-strong) 0%,
+    color-mix(in srgb, var(--color-surface-strong) 97%, var(--color-accent) 3%) 50%,
+    var(--color-surface-strong) 100%
+  );
 }
 
 .hero-section {
   background:
-    radial-gradient(60% 50% at 80% 20%, var(--color-hero-glow), transparent 70%),
-    var(--color-bg);
+    radial-gradient(65% 55% at 80% 20%, var(--color-hero-glow), transparent 72%),
+    linear-gradient(135deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 96%, var(--color-accent) 4%) 45%, var(--color-bg) 100%);
 }
 
 .hero-background {
   background-color: var(--color-grid);
+  /* Dégradé diagonal subtil style Linear / Stripe */
+  -webkit-mask-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.75) 30%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.08) 85%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.75) 30%,
+    rgba(0, 0, 0, 0.35) 60%,
+    rgba(0, 0, 0, 0.08) 85%,
+    transparent 100%
+  );
 }
 
-:root[data-theme='dark'] .hero-section a[class~="border-border"] {
-  border-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-border));
-  background-color: color-mix(in srgb, var(--color-surface) 88%, var(--color-accent) 12%);
+.site-header {
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.site-header.is-scrolled {
+  background-color: var(--color-surface-strong);
+  box-shadow: 0 1px 0 var(--color-border);
 }
 
 .theme-logo {
@@ -143,12 +173,62 @@ textarea {
   isolation: isolate;
 }
 
+/* Overrides Dark Mode */
 :root[data-theme='dark'] .theme-logo {
   filter: invert(1);
 }
 
 :root[data-theme='dark'] .hero-background {
-  opacity: 0.12;
+  opacity: 0.45;
+  -webkit-mask-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.75) 30%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.05) 85%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.75) 30%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.05) 85%,
+    transparent 100%
+  );
+}
+
+:root[data-theme='dark'] .hero-section a[class~="border-border"] {
+  border-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-surface) 88%, var(--color-accent) 12%);
+}
+
+:root[data-theme='dark'] [data-submit-button] {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+:root[data-theme='dark'] [data-submit-button]:hover {
+  background-color: color-mix(in srgb, var(--color-accent) 85%, white);
+}
+
+:root[data-theme='dark'] .text-red-700 {
+  color: #f87171;
+}
+
+/* Transition fluide lors du basculement de thème */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 280ms ease,
+    border-color 280ms ease,
+    color 220ms ease,
+    fill 220ms ease,
+    stroke 220ms ease,
+    box-shadow 280ms ease !important;
+  transition-delay: 0s !important;
 }
 
 ::selection {
@@ -156,14 +236,13 @@ textarea {
   background: var(--color-accent);
 }
 
-/* Pas de contour après un clic ; le focus clavier reste visible. */
 a:focus:not(:focus-visible),
 button:focus:not(:focus-visible) {
   outline: none !important;
   outline-offset: 0;
 }
 
-/* Rôles typographiques à appliquer dans toutes les pages du portfolio. */
+/* Rôles typographiques */
 .display,
 .heading-1,
 .heading-2,

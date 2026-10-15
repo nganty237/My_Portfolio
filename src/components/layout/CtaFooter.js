@@ -7,7 +7,7 @@ export function CtaFooter() {
 
   return `
     <footer>
-      <section class="mx-auto max-w-5xl border-t border-border px-6 py-10 md:py-14">
+      <section class="mx-auto max-w-5xl border-t border-border px-6 py-10 md:py-14" data-footer-cta>
         <div class="pt-2 md:pt-4">
           <h2 class="heading-2 max-w-3xl">You made it! Curious to say <span class="text-accent">hello?</span></h2>
           <a class="mt-1 inline-flex items-center gap-3 heading-2 text-ink transition hover:text-accent" href="/contact.html">View my <span class="text-accent">story</span>, get in touch <span aria-hidden="true">👇</span></a>

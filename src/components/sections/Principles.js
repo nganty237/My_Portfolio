@@ -4,9 +4,9 @@ import { Section } from '../ui/Section.js'
 
 export function Principles() {
   const items = principles.map(({ icon, title, description }) => `
-    <article class="grid gap-2 bg-card p-4 shadow-sm transition-shadow duration-200 hover:shadow-md">
+    <article class="grid gap-1 rounded-lg border border-border bg-card p-4.5 shadow-xs transition-all duration-200 hover:shadow-xs hover:border-accent/20">
       <div class="flex items-center gap-3">
-        <span class="flex size-9 items-center justify-center rounded-full bg-accent-subtle text-accent">
+        <span class="flex size-9 items-center justify-center rounded-full border border-border/80 bg-surface-strong text-accent shadow-xs">
           ${Icon(icon, { size: 18 })}
         </span>
         <h3 class="text-base font-semibold text-ink">${title}</h3>

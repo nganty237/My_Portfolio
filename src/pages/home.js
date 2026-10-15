@@ -7,6 +7,7 @@ import { Principles } from '../components/sections/Principles.js'
 import { ProjectGrid, initProjectFilters } from '../components/sections/ProjectGrid.js'
 import { Button } from '../components/ui/Button.js'
 import { Section } from '../components/ui/Section.js'
+import { initPageAnimations } from '../utils/animations.js'
 import projects from '../data/projects.js'
 import profile from '../data/profile.js'
 
@@ -25,3 +26,4 @@ app.innerHTML = Page({
 initNavbar()
 initCtaFooter()
 initProjectFilters()
+initPageAnimations()

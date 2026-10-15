@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #172333; stroke: #315fc4; stroke-width: 2.5; }
+    .txt { fill: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; font-size: 29px; font-weight: 800; letter-spacing: -0.04em; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0B0D17; stroke: #8AA4FF; stroke-width: 2.5; }
+      .txt { fill: #E8EAF3; }
+    }
+  </style>
+  <circle class="bg" cx="32" cy="32" r="30.5"/>
+  <text class="txt" x="32" y="42" text-anchor="middle">NG.</text>
+</svg>

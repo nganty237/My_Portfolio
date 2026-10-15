@@ -6,14 +6,14 @@ const inputClasses = 'mt-1.5 w-full rounded-md border border-border bg-surface-s
 export function ContactPanel() {
   return `
     <section class="mx-auto max-w-5xl px-6 pb-24 pt-12 md:pb-32 md:pt-16" aria-labelledby="contact-title">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl" data-page-header>
         <p class="mb-3 text-[0.625rem] font-medium tracking-wide text-accent">GET IN TOUCH</p>
         <h1 class="m-0 font-display text-[2.5rem] font-normal leading-tight tracking-[-0.035em] text-ink md:text-[2.75rem]" id="contact-title">Let's start a conversation</h1>
         <p class="mt-3 max-w-2xl text-xs leading-5 text-muted md:text-[0.8125rem]">Have a role, a project or an idea in mind? I&rsquo;d love to hear about it.<br class="hidden sm:block" /> Let&rsquo;s talk about what we could build together.</p>
       </div>
 
       <div class="mt-8 grid gap-10 md:mt-7 md:grid-cols-2 md:gap-14">
-        <aside class="pt-0 md:pt-1" aria-label="Contact information">
+        <aside class="pt-0 md:pt-1" aria-label="Contact information" data-contact-aside>
           ${contactInfo.map((item) => `
             <div class="border-b border-border py-3.5">
               ${item.label === 'AVAILABILITY'
