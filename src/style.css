@@ -440,6 +440,25 @@ button:focus:not(:focus-visible) {
 .label { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; line-height: 1.5; }
 .hero-eyebrow { font-size: 1rem; font-weight: 600; }
 
+.swimming-viewer {
+  width: min(92vw, 64rem);
+  max-width: none;
+  max-height: 92dvh;
+  margin: auto;
+  overflow: auto;
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  color: white;
+  background: #111827;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+}
+
+.swimming-viewer::backdrop {
+  background: rgb(10 14 22 / 82%);
+  backdrop-filter: blur(5px);
+}
+
 @media (max-width: 640px) {
   .hero-section .display,
   .hero-section .body-large {

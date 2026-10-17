@@ -14,6 +14,8 @@
   "swimmingGalleryTitle":"La natation, mon moment pour souffler.","swimmingGalleryIntro":"Quelques moments dans l’eau, là où je peux me détendre et me ressourcer.",
   "swimmingPhotoFrontAlt":"Gabriel nage vers l’objectif dans une piscine turquoise.","swimmingPhotoActionAlt":"Gabriel nage en s’éloignant de l’objectif, entouré d’éclaboussures.",
   "swimmingPhotoFrontCaption":"Un moment dans l’eau","swimmingPhotoActionCaption":"Toujours en mouvement",
+  "swimmingViewPhotos":"Voir les photos","swimmingHidePhotos":"Masquer les photos","swimmingViewerLabel":"Photos de natation","swimmingOpenPhoto":"Voir la photo {number} : {caption}",
+  "swimmingCloseViewer":"Fermer la visionneuse","swimmingPreviousPhoto":"Précédente","swimmingNextPhoto":"Suivante","swimmingPhotoCounter":"Photo {current} sur {total}",
   "getInTouch":"ME CONTACTER","contactTitle":"Faisons connaissance","contactIntro":"Tu as une opportunité, un projet ou une idée en tête ? Écris-moi.<br class=\"hidden sm:block\" /> Parlons de ce que nous pourrions construire ensemble.",
   "contactInformation":"Coordonnées","sendMessage":"Envoyer un message","contactFormIntro":"Parle-moi de ton projet ou de cette opportunité.",
   "name":"Nom","email":"E-mail","subject":"Objet","optional":"facultatif","message":"Message","yourName":"Ton nom","yourEmail":"Ton adresse e-mail",

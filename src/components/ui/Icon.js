@@ -4,6 +4,7 @@ const icons = {
   sun: '<circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />',
   moon: '<path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />',
   'arrow-up-right': '<path d="M7 17 17 7M7 7h10v10" />',
+  expand: '<path d="M15 3h6v6M9 21H3v-6m18-6-7 7M3 9l7-7" />',
   'arrow-down': '<path d="M12 5v14M6 13l6 6 6-6" />',
   'arrow-left': '<path d="M19 12H5M12 19l-7-7 7-7" />',
   'arrow-right': '<path d="M5 12h14M12 5l7 7-7 7" />',
