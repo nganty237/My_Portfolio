@@ -459,6 +459,25 @@ button:focus:not(:focus-visible) {
   backdrop-filter: blur(5px);
 }
 
+.swimming-gallery-toggle {
+  position: relative;
+  animation: swimming-gallery-float 2.2s ease-in-out infinite;
+}
+
+.swimming-gallery-toggle:hover,
+.swimming-gallery-toggle:focus-visible {
+  animation-play-state: paused;
+}
+
+@keyframes swimming-gallery-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swimming-gallery-toggle { animation: none; }
+}
+
 @media (max-width: 640px) {
   .hero-section .display,
   .hero-section .body-large {

@@ -49,13 +49,12 @@ export function SwimmingGallery() {
         <div class="mb-4 flex items-center gap-3">
           <span aria-hidden="true" class="flex size-11 shrink-0 items-center justify-center rounded-full border border-accent/20 bg-accent-subtle text-accent shadow-xs">${Icon('swimming', { size: 21 })}</span>
           <p class="label text-accent">${t('outsideWork')}</p>
-          <span aria-hidden="true" class="h-px w-10 bg-accent/30"></span>
         </div>
         <h2 class="heading-2 max-w-[17ch] text-balance">${t('swimmingGalleryTitle')}</h2>
         <p class="body mt-3 max-w-[34rem] text-muted">${t('swimmingGalleryIntro')}</p>
       </header>
       <div class="max-w-[30rem]" data-swim-reveal>
-        <button type="button" class="group inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent-subtle px-4 py-2 text-sm font-medium text-accent shadow-xs transition hover:border-accent/50 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" data-swim-toggle aria-expanded="false" aria-controls="swimming-gallery-photos">
+        <button type="button" class="swimming-gallery-toggle group inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent-subtle px-4 py-2 text-sm font-medium text-accent shadow-xs transition hover:border-accent/50 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" data-swim-toggle aria-expanded="false" aria-controls="swimming-gallery-photos">
           <span class="transition-transform duration-200 group-hover:scale-110" data-swim-toggle-icon>${Icon('expand', { size: 16 })}</span><span data-swim-toggle-label>${t('swimmingViewPhotos')}</span>
         </button>
         <div id="swimming-gallery-photos" class="mt-4 grid grid-rows-[0fr] opacity-0 -translate-y-2 transition-all duration-300 ease-out" data-swim-panel aria-hidden="true" inert>
