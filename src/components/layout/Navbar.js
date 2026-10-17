@@ -53,9 +53,14 @@ export function Navbar() {
       <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden overflow-y-auto px-6 py-4" data-menu aria-hidden="true">
         <div class="flex items-center justify-between">
           <a class="font-display text-2xl text-ink" href="/index.html">${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : 'NG.'}</a>
-          <button class="inline-flex size-10 items-center justify-center rounded-full text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-menu-close aria-label="${t('menuClose')}">
-            ${Icon('close')}
-          </button>
+          <div class="flex items-center gap-2">
+            <button class="inline-flex size-10 items-center justify-center rounded-full border border-border bg-surface-strong text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
+              <span data-theme-icon>${Icon('moon', { size: 20 })}</span>
+            </button>
+            <button class="inline-flex size-10 items-center justify-center rounded-full text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-menu-close aria-label="${t('menuClose')}">
+              ${Icon('close')}
+            </button>
+          </div>
         </div>
         <nav class="mt-14 grid gap-5 text-sm font-sans" aria-label="${t('mobileNav')}">
           ${navigationLinks('transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
@@ -64,10 +69,6 @@ export function Navbar() {
           <button class="rounded-full px-2.5 py-1 ${locale === 'fr' ? 'bg-accent text-white' : 'text-ink'}" type="button" data-locale="fr" aria-pressed="${locale === 'fr'}">FR</button>
           <button class="rounded-full px-2.5 py-1 ${locale === 'en' ? 'bg-accent text-white' : 'text-ink'}" type="button" data-locale="en" aria-pressed="${locale === 'en'}">EN</button>
         </div>
-        <button class="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
-          <span data-theme-icon>${Icon('moon', { size: 15 })}</span>
-          <span data-theme-label>${t('darkMode')}</span>
-        </button>
       </div>
     </header>
   `

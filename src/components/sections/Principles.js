@@ -19,7 +19,19 @@ export function Principles() {
   return Section({
     id: 'how-i-work',
     className: '',
-    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">${t('howWork')}</h2><p class="body text-muted">${t('workIntro')}</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
+    children: `
+      <div class="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] md:items-end md:gap-10">
+        <div>
+          <p class="label mb-2 text-accent">${t('workEyebrow')}</p>
+          <h2 class="heading-2">${t('howWork')}</h2>
+        </div>
+        <div class="flex max-w-xl items-start gap-4">
+          <span aria-hidden="true" class="flex size-10 shrink-0 items-center justify-center rounded-full border border-accent/20 bg-accent-subtle text-accent shadow-xs">${Icon('server', { size: 18 })}</span>
+          <p class="body pt-1 text-muted">${t('workIntro')}</p>
+        </div>
+      </div>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">${items}</div>
+    `,
   })
 }
 

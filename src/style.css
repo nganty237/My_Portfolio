@@ -461,7 +461,7 @@ button:focus:not(:focus-visible) {
 
 .swimming-gallery-toggle {
   position: relative;
-  animation: swimming-gallery-float 2.2s ease-in-out infinite;
+  animation: swimming-gallery-float 1.5s ease-in-out infinite;
 }
 
 .swimming-gallery-toggle:hover,
@@ -470,12 +470,24 @@ button:focus:not(:focus-visible) {
 }
 
 @keyframes swimming-gallery-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.04); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .swimming-gallery-toggle { animation: none; }
+}
+
+.project-image-link:hover,
+.project-image-link:focus-visible,
+.project-image-link:active {
+  background-color: rgb(15 23 42 / 22%);
+}
+
+.project-image-action {
+  border-color: var(--color-border);
+  color: var(--color-ink);
+  background-color: var(--color-surface-strong);
 }
 
 @media (max-width: 640px) {
