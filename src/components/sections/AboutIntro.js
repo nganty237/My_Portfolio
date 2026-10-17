@@ -1,4 +1,5 @@
 import { Icon } from '../ui/Icon.js'
+import { t } from '../../i18n/index.js'
 
 export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo = [], cvUrl = '' }) {
   const {
@@ -34,14 +35,14 @@ export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo =
   `).join('')
   const interestsSection = interestsMarkup
     ? `<section class="mt-8" aria-labelledby="about-interests-title">
-        <h2 id="about-interests-title" class="heading-3">Outside of work</h2>
+        <h2 id="about-interests-title" class="heading-3">${t('outsideWork')}</h2>
         <ul class="mt-4 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2">${interestsMarkup}</ul>
       </section>`
     : ''
 
   const imageMarkup = image
     ? `<img class="h-full w-full object-cover object-center" src="${image}" alt="${imageAlt}" loading="eager" fetchpriority="high" width="1200" height="1500" />`
-    : `<div class="flex h-full min-h-80 items-center justify-center bg-surface-strong px-6 text-center text-muted" role="img" aria-label="${imageAlt}">Photo coming soon</div>`
+    : `<div class="flex h-full min-h-80 items-center justify-center bg-surface-strong px-6 text-center text-muted" role="img" aria-label="${imageAlt}">${t('photoComing')}</div>`
 
   return `
     <section class="mx-auto max-w-6xl px-6 py-16 md:py-24" data-about-section>
@@ -68,7 +69,7 @@ export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo =
               ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="mailto:${email}">${Icon('mail', { size: 16 })}${email}</a>`
               : ''}
             ${cvUrl
-              ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="${cvUrl}" download="CV_NGANTY_BIKELE.pdf">${Icon('download', { size: 16 })}Download CV</a>`
+              ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="${cvUrl}" download="CV_NGANTY_BIKELE.pdf">${Icon('download', { size: 16 })}${t('downloadCv')}</a>`
               : ''}
           </div>
           ${interestsSection}

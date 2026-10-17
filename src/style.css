@@ -88,6 +88,7 @@
 
 html {
   scroll-padding-top: 5rem;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -97,6 +98,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  overflow-x: clip;
   font-family: var(--font-sans);
   background: var(--color-page-edge);
 }
@@ -132,6 +134,18 @@ textarea {
   background:
     radial-gradient(65% 55% at 80% 20%, var(--color-hero-glow), transparent 72%),
     linear-gradient(135deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 96%, var(--color-accent) 4%) 45%, var(--color-bg) 100%);
+}
+
+.hero-section [data-hero-item] {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.hero-section .display {
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .hero-background {
@@ -364,6 +378,14 @@ textarea {
   color: var(--color-text);
 }
 
+:root[data-theme='dark'] button[data-locale][aria-pressed='true'],
+:root[data-theme='dark'] button[data-locale][aria-pressed='true']:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  font-weight: 600;
+}
+
 :root[data-theme='dark'] .text-red-700 {
   color: #f87171;
 }
@@ -419,6 +441,12 @@ button:focus:not(:focus-visible) {
 .hero-eyebrow { font-size: 1rem; font-weight: 600; }
 
 @media (max-width: 640px) {
+  .hero-section .display,
+  .hero-section .body-large {
+    width: calc(100vw - 4rem);
+    max-width: calc(100vw - 4rem);
+  }
+  .display { font-size: clamp(2rem, 8vw, 2.25rem); line-height: 1.06; }
   .heading-3 { font-size: 1.25rem; }
   .body-large { font-size: 1.125rem; }
 }

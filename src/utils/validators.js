@@ -1,3 +1,5 @@
+import { t } from '../i18n/index.js'
+
 export function isRequired(value) {
   return String(value ?? '').trim().length > 0
 }
@@ -13,17 +15,18 @@ export function minLength(value, length) {
 export function validateContact(values) {
   const errors = {}
 
-  if (!isRequired(values.name)) errors.name = 'Please enter your name.'
+  if (!isRequired(values.name)) errors.name = t('requiredName')
   if (!isRequired(values.email)) {
-    errors.email = 'Please enter your email address.'
+    errors.email = t('requiredEmail')
   } else if (!isEmail(values.email)) {
-    errors.email = 'Please enter a valid email address.'
+    errors.email = t('invalidEmail')
   }
   if (!isRequired(values.message)) {
-    errors.message = 'Please write a message.'
+    errors.message = t('requiredMessage')
   } else if (!minLength(values.message, 10)) {
-    errors.message = 'Your message must contain at least 10 characters.'
+    errors.message = t('shortMessage')
   }
 
   return { valid: Object.keys(errors).length === 0, errors }
 }
+

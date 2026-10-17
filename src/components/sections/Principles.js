@@ -1,9 +1,10 @@
-import { principles } from '../../data/principles.js'
+import { getLocalizedPrinciples } from '../../i18n/content.js'
+import { t } from '../../i18n/index.js'
 import { Icon } from '../ui/Icon.js'
 import { Section } from '../ui/Section.js'
 
 export function Principles() {
-  const items = principles.map(({ icon, title, description }) => `
+  const items = getLocalizedPrinciples().map(({ icon, title, description }) => `
     <article class="grid gap-1 rounded-lg border border-border bg-card p-4.5 shadow-xs transition-all duration-200 hover:shadow-xs hover:border-accent/20">
       <div class="flex items-center gap-3">
         <span class="flex size-9 items-center justify-center rounded-full border border-border/80 bg-surface-strong text-accent shadow-xs">
@@ -18,7 +19,7 @@ export function Principles() {
   return Section({
     id: 'how-i-work',
     className: '',
-    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">How I like to work</h2><p class="body text-muted">I care about writing reliable software and shipping it properly.</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
+    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">${t('howWork')}</h2><p class="body text-muted">${t('workIntro')}</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
   })
 }
 

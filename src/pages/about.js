@@ -5,15 +5,22 @@ import { initNavbar } from '../components/layout/Navbar.js'
 import { AboutIntro } from '../components/sections/AboutIntro.js'
 import { Certifications } from '../components/sections/Certifications.js'
 import { Principles } from '../components/sections/Principles.js'
+import { SwimmingGallery } from '../components/sections/SwimmingGallery.js'
 import { Toolkit } from '../components/sections/Toolkit.js'
-import profile from '../data/profile.js'
-import toolkit from '../data/toolkit.js'
+import { getLocalizedProfile, getLocalizedToolkit } from '../i18n/content.js'
+import { setDocumentMetadata } from '../i18n/index.js'
 
 const app = document.querySelector('#app')
 
-app.innerHTML = Page({
-  children: `${AboutIntro(profile)}${Toolkit({ toolkit })}${Certifications()}${Principles()}`,
-})
+function render() {
+  const profile = getLocalizedProfile()
+  app.innerHTML = Page({
+    children: `${AboutIntro(profile)}${SwimmingGallery()}${Toolkit({ toolkit: getLocalizedToolkit() })}${Certifications()}${Principles()}`,
+  })
+  setDocumentMetadata('about')
+  initNavbar()
+  initCtaFooter()
+}
 
-initNavbar()
-initCtaFooter()
+render()
+document.addEventListener('portfolio:localechange', render)

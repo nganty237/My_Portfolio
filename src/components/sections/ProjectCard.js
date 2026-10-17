@@ -1,6 +1,7 @@
 import { Button } from '../ui/Button.js'
 import { Card } from '../ui/Card.js'
 import { Tag } from '../ui/Tag.js'
+import { t } from '../../i18n/index.js'
 
 export function ProjectCard({
   id,
@@ -16,7 +17,7 @@ export function ProjectCard({
     ? `<img class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="${image}" alt="${alt}" loading="lazy" width="1200" height="760" />`
     : `<div class="flex h-full min-h-56 items-center justify-center bg-surface-strong px-6 text-center text-sm text-muted" role="img" aria-label="${alt || title}">
         <span class="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card px-3.5 py-1.5 text-xs text-muted shadow-xs">
-          Image à venir
+          ${t('imageComing')}
         </span>
        </div>`
 
@@ -31,7 +32,7 @@ export function ProjectCard({
         <h2 class="heading-3 transition-colors duration-200 group-hover:text-accent">${title}</h2>
         <p class="mt-2 text-sm leading-relaxed text-muted">${cardDescription || description}</p>
         <div class="mt-4 flex flex-wrap gap-1.5">${tags.map((tag) => Tag(tag)).join('')}</div>
-        <div class="mt-4">${Button({ label: 'More read', href: `/project.html?slug=${encodeURIComponent(id)}`, variant: 'outline-small', icon: 'arrow-up-right' })}</div>
+        <div class="mt-4">${Button({ label: t('readMore'), href: `/project.html?slug=${encodeURIComponent(id)}`, variant: 'outline-small', icon: 'arrow-up-right' })}</div>
       </div>
     `,
   })

@@ -2,6 +2,7 @@ import { certifications as defaultCertifications } from '../../data/certificatio
 import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
 import { Section } from '../ui/Section.js'
+import { t } from '../../i18n/index.js'
 
 export function Certifications({ certifications = defaultCertifications } = {}) {
   const items = certifications.map(({ title, issuer, date, url }) => {
@@ -21,7 +22,7 @@ export function Certifications({ certifications = defaultCertifications } = {}) 
           <h3 class="text-base font-semibold leading-6 text-ink">${heading}</h3>
           ${issuer ? `<p class="text-xs font-medium tracking-wide text-accent">${issuer}</p>` : ''}
         </div>
-        ${url ? `<div class="mt-1">${Button({ label: 'Verify Certificate', href: url, variant: 'outline', icon: 'arrow-up-right', attrs: 'target="_blank" rel="noopener noreferrer"' })}</div>` : ''}
+        ${url ? `<div class="mt-1">${Button({ label: t('verifyCertificate'), href: url, variant: 'outline', icon: 'arrow-up-right', attrs: 'target="_blank" rel="noopener noreferrer"' })}</div>` : ''}
       </article>
     `
   }).join('')
@@ -29,7 +30,7 @@ export function Certifications({ certifications = defaultCertifications } = {}) 
   return Section({
     id: 'certifications',
     className: '',
-    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">Certifications &amp; Training</h2><p class="body text-muted">Certifications completed through Meta and Google on Coursera.</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
+    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">${t('certifications')}</h2><p class="body text-muted">${t('certificationsIntro')}</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${items}</div>`,
   })
 }
 

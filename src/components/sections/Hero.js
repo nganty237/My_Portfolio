@@ -2,6 +2,7 @@ import heroBackground from '../../assets/Grillage bleu-blanc.svg'
 import portraitPhoto from '../../assets/nganty.jpeg'
 import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
+import { t } from '../../i18n/index.js'
 
 export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [], photo = portraitPhoto }) {
   const headlineMarkup = headline?.map(({ text, accent }) => {
@@ -22,27 +23,27 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [], ph
   return `
     <section class="hero-section relative isolate overflow-hidden" data-hero>
       ${backgroundSource ? `<img class="hero-background pointer-events-none absolute inset-0 h-full w-full object-cover" src="${backgroundSource}" alt="" aria-hidden="true" data-hero-bg />` : ''}
-      <div class="relative z-10 mx-auto grid max-w-6xl content-center gap-5 px-6 py-14 md:py-18">
+      <div class="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 content-center gap-5 px-6 py-14 md:py-18">
         <div class="flex items-center justify-between gap-4" data-hero-item>
           <p class="label hero-eyebrow text-muted">${eyebrow ?? ''}</p>
           ${photoSource ? `
             <div class="relative shrink-0">
-              <div class="size-14 sm:size-16 md:size-20 overflow-hidden rounded-full border-2 border-border bg-surface-strong shadow-md ring-2 ring-accent/20 transition-transform duration-300 hover:scale-105 hover:ring-accent/40">
-                <img class="h-full w-full object-cover object-top" src="${photoSource}" alt="Gabriel Nganty" width="80" height="80" loading="eager" />
+            <div class="size-14 sm:size-16 md:size-20 overflow-hidden rounded-full border-2 border-border bg-surface-strong shadow-md ring-2 ring-accent/20 transition-transform duration-300 hover:scale-105 hover:ring-accent/40">
+                <img class="h-full w-full object-cover object-top" src="${photoSource}" alt="${t('portraitAlt')}" width="80" height="80" loading="eager" />
               </div>
             </div>
           ` : ''}
         </div>
-        <h1 class="display max-w-5xl text-ink" data-hero-item>${headlineMarkup}</h1>
-        <p class="body-large max-w-2xl text-muted" data-hero-item>${subtitle ?? ''}</p>
+        <h1 class="display min-w-0 w-full max-w-full break-words text-ink" data-hero-item>${headlineMarkup}</h1>
+        <p class="body-large min-w-0 max-w-2xl text-muted" data-hero-item>${subtitle ?? ''}</p>
         <div class="flex flex-wrap items-center gap-5" data-hero-item>
-          ${Button({ label: 'Download CV', href: cvUrl ?? '#', variant: 'outline', icon: 'download', attrs: 'download="CV_NGANTY_BIKELE.pdf"' })}
-          <div class="flex items-center gap-2" aria-label="Social media">
+          ${Button({ label: t('downloadCv'), href: cvUrl ?? '#', variant: 'outline', icon: 'download', attrs: 'download="CV_NGANTY_BIKELE.pdf"' })}
+          <div class="flex items-center gap-2" aria-label="${t('contactSocial')}">
             ${socialLinks}
           </div>
         </div>
         <div class="mt-1" data-hero-item>
-          ${Button({ label: 'Selected Work', href: '#selected-work', variant: 'outline', icon: 'arrow-down', attrs: 'data-scroll-to-work' })}
+          ${Button({ label: t('selectedWork'), href: '#selected-work', variant: 'outline', icon: 'arrow-down', attrs: 'data-scroll-to-work' })}
         </div>
       </div>
     </section>

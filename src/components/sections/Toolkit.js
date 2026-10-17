@@ -2,6 +2,7 @@ import { toolkit as defaultToolkit } from '../../data/toolkit.js'
 import { Icon } from '../ui/Icon.js'
 import { Section } from '../ui/Section.js'
 import { Tag } from '../ui/Tag.js'
+import { t } from '../../i18n/index.js'
 
 export function Toolkit({ toolkit = defaultToolkit }) {
   const groupsMarkup = toolkit.map(({ group, icon, items = [] }) => `
@@ -21,7 +22,7 @@ export function Toolkit({ toolkit = defaultToolkit }) {
   return Section({
     id: 'toolkit',
     className: '',
-    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">Skills</h2><p class="body text-muted">Technologies and tools I use in my studies and projects.</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${groupsMarkup}</div>`,
+    children: `<div class="grid gap-5 md:grid-cols-2 md:gap-10"><h2 class="heading-2">${t('skills')}</h2><p class="body text-muted">${t('skillsIntro')}</p></div><div class="mt-6 grid gap-4 sm:grid-cols-2">${groupsMarkup}</div>`,
   })
 }
 

@@ -23,6 +23,12 @@ const icons = {
   code: '<path d="m8 17-5-5 5-5m8 10 5-5-5-5m-3 12 2-14" />',
   database: '<ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3" />',
   palette: '<path d="M12 3a9 9 0 1 0 0 18h1.2a2.3 2.3 0 0 0 1.7-3.9 1.8 1.8 0 0 1 1.3-3.1h1.3A3.5 3.5 0 0 0 21 10.5C21 6.4 17 3 12 3Z" /><circle cx="7.5" cy="10" r="1" /><circle cx="11" cy="7" r="1" /><circle cx="15.5" cy="8" r="1" />',
+  'plus-circle': '<circle cx="12" cy="12" r="9" /><path d="M12 8v8M8 12h8" />',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />',
+  tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z" /><circle cx="7.5" cy="7.5" r="1" />',
+  send: '<path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" />',
+  'message-circle': '<path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z" />',
+  star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" />',
 }
 
 export function Icon(name, { size = 20, className = '' } = {}) {
