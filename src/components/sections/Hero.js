@@ -4,7 +4,7 @@ import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
 import { t } from '../../i18n/index.js'
 
-export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [], photo = portraitPhoto }) {
+export function Hero({ eyebrow, headline = [], subtitle, cvUrl, cvFilename, socials = [], photo = portraitPhoto }) {
   const headlineMarkup = headline?.map(({ text, accent }) => {
     const className = accent ? 'text-accent' : ''
 
@@ -37,7 +37,7 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, socials = [], ph
         <h1 class="display min-w-0 w-full max-w-full break-words text-ink" data-hero-item>${headlineMarkup}</h1>
         <p class="body-large min-w-0 max-w-2xl text-muted" data-hero-item>${subtitle ?? ''}</p>
         <div class="flex flex-wrap items-center gap-5" data-hero-item>
-          ${Button({ label: t('downloadCv'), href: cvUrl ?? '#', variant: 'outline', icon: 'download', attrs: 'download="CV_NGANTY_BIKELE.pdf"' })}
+          ${Button({ label: t('downloadCv'), href: cvUrl ?? '#', variant: 'outline', icon: 'download', attrs: cvFilename ? `download="${cvFilename}"` : 'download' })}
           <div class="flex items-center gap-2" aria-label="${t('contactSocial')}">
             ${socialLinks}
           </div>

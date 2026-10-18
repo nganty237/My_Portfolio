@@ -1,7 +1,7 @@
 import { Icon } from '../ui/Icon.js'
 import { t } from '../../i18n/index.js'
 
-export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo = [], cvUrl = '' }) {
+export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo = [], cvUrl = '', cvFilename = '' }) {
   const {
     eyebrow = 'A LITTLE ABOUT ME',
     title = [],
@@ -10,7 +10,7 @@ export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo =
     imageAlt = 'Portrait de Gabriel Nganty',
   } = about
 
-  const email = contactInfo.find(({ label }) => label === 'EMAIL')?.value || ''
+  const email = contactInfo.find(({ key }) => key === 'email')?.value || ''
 
   const titleMarkup = (Array.isArray(title) ? title : [title])
     .filter(Boolean)
@@ -69,7 +69,7 @@ export function AboutIntro({ about = {}, bio = [], interests = [], contactInfo =
               ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="mailto:${email}">${Icon('mail', { size: 16 })}${email}</a>`
               : ''}
             ${cvUrl
-              ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="${cvUrl}" download="CV_NGANTY_BIKELE.pdf">${Icon('download', { size: 16 })}${t('downloadCv')}</a>`
+              ? `<a class="inline-flex items-center gap-2 rounded-full border border-border bg-surface-strong px-4 py-2 text-xs font-medium text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" href="${cvUrl}" ${cvFilename ? `download="${cvFilename}"` : 'download'}>${Icon('download', { size: 16 })}${t('downloadCv')}</a>`
               : ''}
           </div>
           ${interestsSection}

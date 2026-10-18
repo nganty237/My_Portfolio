@@ -501,6 +501,8 @@ export function animateFilterTransition({ leavingCards, enteringCards, onComplet
  */
 export function animateMobileMenu(menu, isOpen, onDone) {
   if (prefersReducedMotion()) {
+    gsap.killTweensOf(menu)
+    gsap.set(menu, { clearProps: 'clipPath,opacity,transform' })
     menu.classList.toggle('hidden', !isOpen)
     onDone?.()
     return
@@ -511,31 +513,30 @@ export function animateMobileMenu(menu, isOpen, onDone) {
     gsap.killTweensOf(menu)
     gsap.fromTo(
       menu,
-      { opacity: 0, y: -8 },
-      { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' }
+      { clipPath: 'inset(0 0 100% 0)' },
+      {
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 0.48,
+        ease: 'power3.inOut',
+        onComplete: () => gsap.set(menu, { clearProps: 'clipPath' }),
+      }
     )
-
-    const menuItems = menu.querySelectorAll('[data-menu-link], [data-theme-toggle]')
-    if (menuItems.length > 0) {
-      gsap.killTweensOf(menuItems)
-      gsap.fromTo(
-        menuItems,
-        { opacity: 0, x: -10 },
-        { opacity: 1, x: 0, duration: 0.22, stagger: 0.03, ease: 'power2.out', delay: 0.04 }
-      )
-    }
   } else {
     gsap.killTweensOf(menu)
-    gsap.to(menu, {
-      opacity: 0,
-      y: -8,
-      duration: 0.16,
-      ease: 'power2.in',
-      onComplete: () => {
-        menu.classList.add('hidden')
-        onDone?.()
-      },
-    })
+    gsap.fromTo(
+      menu,
+      { clipPath: 'inset(0 0 0% 0)' },
+      {
+        clipPath: 'inset(0 0 100% 0)',
+        duration: 0.4,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          menu.classList.add('hidden')
+          gsap.set(menu, { clearProps: 'clipPath' })
+          onDone?.()
+        },
+      }
+    )
   }
 }
 

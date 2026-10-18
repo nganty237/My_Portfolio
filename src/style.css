@@ -39,7 +39,7 @@
   --color-text: #172333;
   --color-text-muted: #667085;
   --color-accent: #315fc4;
-  --color-hero-glow: transparent;
+  --color-hero-glow: rgba(49, 95, 196, 0.07);
 
   /* Alias Tailwind */
   --color-ink: var(--color-text);
@@ -118,6 +118,21 @@ textarea {
   font-family: inherit;
 }
 
+.language-select {
+  width: 3.5rem;
+  height: 1.8rem;
+  padding: 0 0.2rem 0 0.4rem;
+  font: 500 0.7rem/1 var(--font-sans);
+  cursor: pointer;
+}
+
+.language-select option {
+  color: var(--color-ink);
+  background: var(--color-surface-strong);
+  font: 500 0.8rem/1.4 var(--font-sans);
+  padding: 0.2rem 0.4rem;
+}
+
 #app {
   min-height: 100vh;
   width: 100%;
@@ -193,6 +208,8 @@ textarea {
   box-shadow: 0 12px 30px rgb(23 35 51 / 12%);
   height: 100dvh;
   min-height: 100vh;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   width: 100vw;
   isolation: isolate;
 }

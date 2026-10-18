@@ -10,7 +10,7 @@ export const headline = [
   { text: ', a fifth-year Software Engineering student and aspiring software developer.' },
 ]
 
-export const subtitle = 'Based at ENSPD Douala, I aspire to craft modern web applications and thoughtful digital experiences.'
+export const subtitle = 'Based at ENSPD Douala, I create modern web applications and thoughtful digital experiences.'
 
 export const about = {
   eyebrow: 'ABOUT ME',

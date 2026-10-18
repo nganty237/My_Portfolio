@@ -2,9 +2,10 @@ import profile from '../data/profile.js'
 import projects from '../data/projects.js'
 import principles from '../data/principles.js'
 import toolkit from '../data/toolkit.js'
-import { getMessages } from './index.js'
+import { getLocale, getMessages } from './index.js'
 
 export function getLocalizedProfile() {
+  const locale = getLocale()
   const messages = getMessages()
   const about = {
     ...profile.about,
@@ -15,6 +16,8 @@ export function getLocalizedProfile() {
   }
   return {
     ...profile,
+    cvUrl: locale === 'fr' ? '/CV_NGANTY_BIKELE_FR.pdf' : '/CV_NGANTY_BIKELE_EN.pdf',
+    cvFilename: locale === 'fr' ? 'CV_NGANTY_BIKELE_FR.pdf' : 'CV_NGANTY_BIKELE_EN.pdf',
     eyebrow: messages.homeEyebrow,
     headline: messages.homeHeadline.map((text, index) => ({ text, ...(index === 1 ? { accent: true } : {}) })),
     subtitle: messages.homeSubtitle,

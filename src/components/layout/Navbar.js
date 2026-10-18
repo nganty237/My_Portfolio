@@ -21,6 +21,13 @@ function navigationLinks(className = '') {
   }).join('')
 }
 
+function languageSelector(locale, className = '') {
+  return `<select class="${className} language-select rounded-full border border-border bg-surface-strong text-ink focus:outline-2 focus:outline-offset-2 focus:outline-accent" data-locale-select aria-label="${t('language')}">
+    <option value="fr" ${locale === 'fr' ? 'selected' : ''}>FR</option>
+    <option value="en" ${locale === 'en' ? 'selected' : ''}>EN</option>
+  </select>`
+}
+
 export function Navbar() {
   const logoSource = logoNg?.src ?? logoNg ?? ''
   const locale = getLocale()
@@ -37,10 +44,7 @@ export function Navbar() {
         </nav>
 
         <div class="flex items-center gap-3">
-          <div class="inline-flex items-center rounded-full border border-border bg-surface-strong p-1 text-xs" role="group" aria-label="${t('language')}">
-            <button class="rounded-full px-2.5 py-1 ${locale === 'fr' ? 'bg-accent text-white' : 'text-ink'}" type="button" data-locale="fr" aria-pressed="${locale === 'fr'}">FR</button>
-            <button class="rounded-full px-2.5 py-1 ${locale === 'en' ? 'bg-accent text-white' : 'text-ink'}" type="button" data-locale="en" aria-pressed="${locale === 'en'}">EN</button>
-          </div>
+          ${languageSelector(locale)}
           <button class="hidden size-10 items-center cursor-pointer justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:inline-flex" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
             <span data-theme-icon>${Icon('moon')}</span>
           </button>
@@ -50,31 +54,69 @@ export function Navbar() {
         </div>
       </div>
 
-      <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden overflow-y-auto px-6 py-4" data-menu aria-hidden="true">
-        <div class="flex items-center justify-between">
-          <a class="font-display text-2xl text-ink" href="/index.html">${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : 'NG.'}</a>
-          <div class="flex items-center gap-2">
-            <button class="inline-flex size-10 items-center justify-center rounded-full border border-border bg-surface-strong text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
-              <span data-theme-icon>${Icon('moon', { size: 20 })}</span>
-            </button>
-            <button class="inline-flex size-10 items-center justify-center rounded-full text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-menu-close aria-label="${t('menuClose')}">
-              ${Icon('close')}
-            </button>
-          </div>
-        </div>
-        <nav class="mt-14 grid gap-5 text-sm font-sans" aria-label="${t('mobileNav')}">
-          ${navigationLinks('transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
-        </nav>
-        <div class="mt-8 inline-flex items-center rounded-full border border-border bg-surface-strong p-1 text-xs" role="group" aria-label="${t('language')}">
-          <button class="rounded-full px-2.5 py-1 ${locale === 'fr' ? 'bg-accent text-white' : 'text-ink'}" type="button" data-locale="fr" aria-pressed="${locale === 'fr'}">FR</button>
-          <button class="rounded-full px-2.5 py-1 ${locale === 'en' ? 'bg-accent text-white' : 'text-ink'}" type="button" data-locale="en" aria-pressed="${locale === 'en'}">EN</button>
+    </header>
+
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 hidden overflow-y-auto px-6 py-4" data-menu aria-hidden="true">
+      <div class="flex items-center justify-between">
+        <a class="font-display text-2xl text-ink" href="/index.html">${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : 'NG.'}</a>
+        <div class="flex items-center gap-2">
+          <button class="inline-flex size-10 items-center justify-center rounded-full border border-border bg-surface-strong text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
+            <span data-theme-icon>${Icon('moon', { size: 20 })}</span>
+          </button>
+          <button class="inline-flex size-10 items-center justify-center rounded-full text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-menu-close aria-label="${t('menuClose')}">
+            ${Icon('close')}
+          </button>
         </div>
       </div>
-    </header>
+      <nav class="mt-14 grid gap-5 text-sm font-sans" aria-label="${t('mobileNav')}">
+        ${navigationLinks('transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
+      </nav>
+      ${languageSelector(locale, 'mt-8')}
+    </div>
   `
 }
 
 let navbarInitialized = false
+let menuAnimationVersion = 0
+let bodyScrollSnapshot = null
+
+function lockPageScroll() {
+  if (bodyScrollSnapshot) return
+
+  const body = document.body
+  const root = document.documentElement
+  const scrollY = window.scrollY
+  bodyScrollSnapshot = {
+    scrollY,
+    bodyStyles: {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    },
+    rootOverflow: root.style.overflow,
+  }
+
+  body.style.position = 'fixed'
+  body.style.top = `-${scrollY}px`
+  body.style.left = '0'
+  body.style.right = '0'
+  body.style.width = '100%'
+  body.style.overflow = 'hidden'
+  root.style.overflow = 'hidden'
+}
+
+function unlockPageScroll() {
+  if (!bodyScrollSnapshot) return
+
+  const { scrollY, bodyStyles, rootOverflow } = bodyScrollSnapshot
+  bodyScrollSnapshot = null
+  Object.assign(document.body.style, bodyStyles)
+  document.documentElement.style.overflow = rootOverflow
+  window.scrollTo(0, scrollY)
+}
 
 export function initNavbar() {
   const setTheme = (isDark, persist = false) => {
@@ -112,9 +154,23 @@ export function initNavbar() {
     toggle.setAttribute('aria-expanded', String(isOpen))
     header?.classList.toggle('is-menu-open', isOpen)
     menu.setAttribute('aria-hidden', String(!isOpen))
-    menu.classList.toggle('hidden', !isOpen)
+    if (isOpen) menu.classList.remove('hidden')
     document.body.classList.toggle('overflow-hidden', isOpen)
-    loadAnimations().then(({ animateMobileMenu }) => animateMobileMenu(menu, isOpen))
+    if (isOpen) lockPageScroll()
+    const animationVersion = ++menuAnimationVersion
+    loadAnimations().then(({ animateMobileMenu }) => {
+      if (animationVersion !== menuAnimationVersion) return
+      animateMobileMenu(menu, isOpen, () => {
+        if (animationVersion === menuAnimationVersion && !isOpen) unlockPageScroll()
+      })
+    })
+  }
+
+  const closeMenuOnDesktop = () => {
+    const toggle = qs('[data-menu-toggle]')
+    if (window.matchMedia('(min-width: 48rem)').matches && toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuState(false)
+    }
   }
 
   setTheme(localStorage.getItem('portfolio-theme') === 'dark')
@@ -122,9 +178,13 @@ export function initNavbar() {
   updateHeaderBackground()
   if (!navbarInitialized) {
     window.addEventListener('scroll', updateHeaderBackground, { passive: true })
+    window.addEventListener('resize', closeMenuOnDesktop, { passive: true })
     on(document, 'click', '[data-theme-toggle]', () => setTheme(!document.documentElement.hasAttribute('data-theme'), true))
-    on(document, 'click', '[data-locale]', (_, button) => setLocale(button.dataset.locale))
-    on(document, 'click', '[data-menu-toggle]', () => setMenuState(qs('[data-menu]')?.classList.contains('hidden')))
+    on(document, 'change', '[data-locale-select]', (_, selector) => {
+      if (qs('[data-menu-toggle]')?.getAttribute('aria-expanded') === 'true') setMenuState(false)
+      setLocale(selector.value)
+    })
+    on(document, 'click', '[data-menu-toggle]', (_, toggle) => setMenuState(toggle.getAttribute('aria-expanded') !== 'true'))
     on(document, 'click', '[data-menu-close]', () => setMenuState(false))
     on(document, 'click', '[data-menu-link]', () => setMenuState(false))
     on(document, 'keydown', 'body', (event) => {
