@@ -99,6 +99,7 @@ export function initSwimmingGallery() {
   let isPinned = false
   let pointerInside = false
   let pointerActivation = false
+  const canHover = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false
 
   const preloadPhotos = () => {
     photos.forEach(({ src }) => {
@@ -154,22 +155,24 @@ export function initSwimmingGallery() {
   })
   reveal.addEventListener('pointerdown', () => { pointerActivation = true })
   reveal.addEventListener('pointerup', () => { setTimeout(() => { pointerActivation = false }, 0) })
-  reveal.addEventListener('mouseenter', () => {
-    pointerInside = true
-    if (!isPinned) setGalleryOpen(true)
-  })
-  reveal.addEventListener('mouseleave', () => {
-    pointerInside = false
-    if (!isPinned) setGalleryOpen(false)
-  })
+  if (canHover) {
+    reveal.addEventListener('mouseenter', () => {
+      pointerInside = true
+      if (!isPinned) setGalleryOpen(true)
+    })
+    reveal.addEventListener('mouseleave', () => {
+      pointerInside = false
+      if (!isPinned) setGalleryOpen(false)
+    })
+  }
   reveal.addEventListener('focusin', () => {
     if (!pointerActivation) setGalleryOpen(true)
   })
   reveal.addEventListener('focusout', (event) => {
     if (!reveal.contains(event.relatedTarget) && !isPinned && !pointerInside) setGalleryOpen(false)
   })
-  toggle.addEventListener('click', (event) => {
-    isPinned = event.detail === 0 || !isOpen
+ toggle.addEventListener('click', () => {
+   isPinned = !isPinned
     setGalleryOpen(isPinned)
   })
   dialog.querySelector('[data-swim-close]').addEventListener('click', closeViewer)
