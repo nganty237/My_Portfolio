@@ -1,5 +1,7 @@
 import swimFront from '../../assets/swim-1.jpg'
 import swimAction from '../../assets/swim-2.jpg'
+import trainingPortrait from '../../assets/ecole-du-code-formation.jpg'
+import trainingGroup from '../../assets/promotion-ecole-du-code.jpg'
 import { Icon } from '../ui/Icon.js'
 import { Section } from '../ui/Section.js'
 import { t } from '../../i18n/index.js'
@@ -9,18 +11,36 @@ const photos = [
     src: swimFront,
     altKey: 'swimmingPhotoFrontAlt',
     captionKey: 'swimmingPhotoFrontCaption',
+    width: 810,
+    height: 900,
   },
   {
     src: swimAction,
     altKey: 'swimmingPhotoActionAlt',
     captionKey: 'swimmingPhotoActionCaption',
+    width: 810,
+    height: 900,
+  },
+  {
+    src: trainingPortrait,
+    altKey: 'trainingPhotoPortraitAlt',
+    captionKey: 'trainingPhotoPortraitCaption',
+    width: 810,
+    height: 1080,
+  },
+  {
+    src: trainingGroup,
+    altKey: 'trainingPhotoGroupAlt',
+    captionKey: 'trainingPhotoGroupCaption',
+    width: 1080,
+    height: 810,
   },
 ]
 
 export function SwimmingGallery() {
-  const images = photos.map(({ src, altKey, captionKey }, index) => `
+  const images = photos.map(({ src, altKey, captionKey, width, height }, index) => `
     <button
-      class="group relative m-0 aspect-[4/5] w-full overflow-hidden rounded-xl border border-border bg-card p-0 text-left shadow-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      class="group relative m-0 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border bg-card p-0 text-left shadow-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       type="button"
       data-swim-photo="${index}"
       aria-label="${t('swimmingOpenPhoto', { number: index + 1, caption: t(captionKey) })}"
@@ -29,8 +49,8 @@ export function SwimmingGallery() {
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         src="${src}"
         alt=""
-        width="810"
-        height="900"
+        width="${width}"
+        height="${height}"
         loading="eager"
         decoding="async"
         fetchpriority="low"
@@ -43,24 +63,20 @@ export function SwimmingGallery() {
   `).join('')
 
   return Section({
-    id: 'swimming',
+    id: 'training-moments',
     className: '',
     children: `
       <header class="mb-6 max-w-2xl" data-page-header>
-        <div class="mb-4 flex items-center gap-3">
-          <span aria-hidden="true" class="flex size-11 shrink-0 items-center justify-center rounded-full border border-accent/20 bg-accent-subtle text-accent shadow-xs">${Icon('swimming', { size: 21 })}</span>
-          <p class="label text-accent">${t('outsideWork')}</p>
-        </div>
         <h2 class="heading-2 max-w-[17ch] text-balance">${t('swimmingGalleryTitle')}</h2>
         <p class="body mt-3 max-w-[34rem] text-muted">${t('swimmingGalleryIntro')}</p>
       </header>
-      <div class="max-w-[30rem]" data-swim-reveal>
+      <div class="w-full" data-swim-reveal>
         <button type="button" class="swimming-gallery-toggle group inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent-subtle px-4 py-2 text-sm font-medium text-accent shadow-xs transition hover:border-accent/50 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" data-swim-toggle aria-expanded="false" aria-controls="swimming-gallery-photos">
           <span class="transition-transform duration-200 group-hover:scale-110" data-swim-toggle-icon>${Icon('expand', { size: 16 })}</span><span data-swim-toggle-label>${t('swimmingViewPhotos')}</span>
         </button>
         <div id="swimming-gallery-photos" class="mt-4 grid grid-rows-[0fr] opacity-0 -translate-y-2 transition-all duration-200 ease-out" data-swim-panel aria-hidden="true" inert>
           <div class="min-h-0 overflow-hidden">
-            <div class="grid grid-cols-2 items-start gap-4 sm:gap-5">
+            <div class="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5">
               ${images}
             </div>
           </div>
@@ -95,29 +111,12 @@ export function initSwimmingGallery() {
   const photoButtons = [...document.querySelectorAll('[data-swim-photo]')]
   let currentIndex = 0
   let activeTrigger = null
-  let isOpen = false
   let isPinned = false
   let pointerInside = false
   let pointerActivation = false
   const canHover = window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false
 
-  const preloadPhotos = () => {
-    photos.forEach(({ src }) => {
-      const image = new Image()
-      image.decoding = 'async'
-      image.fetchPriority = 'low'
-      image.src = src
-    })
-  }
-
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(preloadPhotos, { timeout: 1200 })
-  } else {
-    window.setTimeout(preloadPhotos, 300)
-  }
-
   function setGalleryOpen(open) {
-    isOpen = open
     toggle.setAttribute('aria-expanded', String(open))
     panel.setAttribute('aria-hidden', String(!open))
     panel.inert = !open
@@ -171,8 +170,8 @@ export function initSwimmingGallery() {
   reveal.addEventListener('focusout', (event) => {
     if (!reveal.contains(event.relatedTarget) && !isPinned && !pointerInside) setGalleryOpen(false)
   })
- toggle.addEventListener('click', () => {
-   isPinned = !isPinned
+  toggle.addEventListener('click', () => {
+    isPinned = !isPinned
     setGalleryOpen(isPinned)
   })
   dialog.querySelector('[data-swim-close]').addEventListener('click', closeViewer)

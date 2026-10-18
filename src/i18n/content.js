@@ -23,7 +23,6 @@ export function getLocalizedProfile() {
     subtitle: messages.homeSubtitle,
     about,
     bio: messages.aboutBio,
-    interests: profile.interests.map((item, index) => ({ ...item, title: messages.interestTitles[index], description: messages.interestDescriptions[index] })),
     contactInfo: profile.contactInfo.map((item, index) => ({ ...item, key: ['email', 'location', 'availability'][index], label: messages.contactLabels[index], value: messages.contactValues[index] })),
   }
 }

@@ -26,13 +26,6 @@ export const bio = [
   'I work with TypeScript, JavaScript, React, Angular, Node.js, Express.js, Figma, MySQL, and PostgreSQL. I aspire to become a DevOps engineer because I enjoy automating repetitive tasks and want to help teams deploy reliable applications faster.',
 ]
 
-export const interests = [
-  { icon: 'swimming', title: 'Swimming', description: 'Swimming helps me relax and recharge.' },
-  { icon: 'running', title: 'Running', description: 'I enjoy running to stay active and clear my mind.' },
-  { icon: 'music', title: 'Music', description: 'I often listen to music while I work; it helps me focus and stay motivated.' },
-  { icon: 'football', title: 'Football', description: 'I enjoy playing football in my free time.' },
-]
-
 export const cvUrl = '/CV_NGANTY_BIKELE.pdf'
 
 export const socials = [
@@ -51,7 +44,7 @@ export const nav = [
 export const contactInfo = [
   { label: 'EMAIL', value: 'surflinkayos@gmail.com' },
   { label: 'LOCATION', value: 'Douala, Cameroon (ENSPD)' },
-  { label: 'AVAILABILITY', value: 'Open to internship opportunities and collaborations' },
+  { label: 'AVAILABILITY', value: 'Open to internships and collaborations, on-site or remote. I gained my first professional experience during a three-and-a-half-month internship.' },
 ]
 
 export default {
@@ -61,7 +54,6 @@ export default {
   subtitle,
   about,
   bio,
-  interests,
   cvUrl,
   socials,
   nav,
