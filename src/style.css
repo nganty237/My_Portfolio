@@ -508,6 +508,24 @@ button:focus:not(:focus-visible) {
 }
 
 @media (max-width: 640px) {
+  .hero-actions,
+  .hero-selected-work {
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  .hero-actions > a,
+  .hero-selected-work > a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-socials {
+    padding-inline: 0.25rem;
+  }
+  .swimming-gallery-toggle {
+    animation: none;
+  }
   .hero-section .display,
   .hero-section .body-large {
     width: calc(100vw - 4rem);

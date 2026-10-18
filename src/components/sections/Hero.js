@@ -36,13 +36,13 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, cvFilename, soci
         </div>
         <h1 class="display min-w-0 w-full max-w-full break-words text-ink" data-hero-item>${headlineMarkup}</h1>
         <p class="body-large min-w-0 max-w-2xl text-muted" data-hero-item>${subtitle ?? ''}</p>
-        <div class="flex flex-wrap items-center gap-5" data-hero-item>
+        <div class="hero-actions flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5" data-hero-item>
           ${Button({ label: t('downloadCv'), href: cvUrl ?? '#', variant: 'outline', icon: 'download', attrs: cvFilename ? `download="${cvFilename}"` : 'download' })}
-          <div class="flex items-center gap-2" aria-label="${t('contactSocial')}">
+          <div class="hero-socials flex items-center gap-2 self-start sm:self-auto" aria-label="${t('contactSocial')}">
             ${socialLinks}
           </div>
         </div>
-        <div class="mt-1" data-hero-item>
+        <div class="hero-selected-work mt-1" data-hero-item>
           ${Button({ label: t('selectedWork'), href: '#selected-work', variant: 'outline', icon: 'arrow-down', attrs: 'data-scroll-to-work' })}
         </div>
       </div>

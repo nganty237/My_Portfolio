@@ -31,8 +31,9 @@ export function SwimmingGallery() {
         alt=""
         width="810"
         height="900"
-        loading="lazy"
+        loading="eager"
         decoding="async"
+        fetchpriority="low"
       />
       <span aria-hidden="true" class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-black/10"></span>
       <span aria-hidden="true" class="absolute left-3 top-3 text-xs font-semibold tracking-wide text-white drop-shadow">0${index + 1}</span>
@@ -57,7 +58,7 @@ export function SwimmingGallery() {
         <button type="button" class="swimming-gallery-toggle group inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent-subtle px-4 py-2 text-sm font-medium text-accent shadow-xs transition hover:border-accent/50 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" data-swim-toggle aria-expanded="false" aria-controls="swimming-gallery-photos">
           <span class="transition-transform duration-200 group-hover:scale-110" data-swim-toggle-icon>${Icon('expand', { size: 16 })}</span><span data-swim-toggle-label>${t('swimmingViewPhotos')}</span>
         </button>
-        <div id="swimming-gallery-photos" class="mt-4 grid grid-rows-[0fr] opacity-0 -translate-y-2 transition-all duration-300 ease-out" data-swim-panel aria-hidden="true" inert>
+        <div id="swimming-gallery-photos" class="mt-4 grid grid-rows-[0fr] opacity-0 -translate-y-2 transition-all duration-200 ease-out" data-swim-panel aria-hidden="true" inert>
           <div class="min-h-0 overflow-hidden">
             <div class="grid grid-cols-2 items-start gap-4 sm:gap-5">
               ${images}
@@ -98,6 +99,21 @@ export function initSwimmingGallery() {
   let isPinned = false
   let pointerInside = false
   let pointerActivation = false
+
+  const preloadPhotos = () => {
+    photos.forEach(({ src }) => {
+      const image = new Image()
+      image.decoding = 'async'
+      image.fetchPriority = 'low'
+      image.src = src
+    })
+  }
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(preloadPhotos, { timeout: 1200 })
+  } else {
+    window.setTimeout(preloadPhotos, 300)
+  }
 
   function setGalleryOpen(open) {
     isOpen = open
