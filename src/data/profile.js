@@ -26,6 +26,13 @@ export const bio = [
   'I work with TypeScript, JavaScript, React, Angular, Node.js, Express.js, Figma, MySQL, and PostgreSQL. I aspire to become a DevOps engineer because I enjoy automating repetitive tasks and want to help teams deploy reliable applications faster.',
 ]
 
+export const interests = [
+  { icon: 'swimming', title: 'Swimming', description: 'Swimming helps me relax and recharge.' },
+  { icon: 'music', title: 'Music', description: 'Music helps me unwind and sets the mood for different moments.' },
+  { icon: 'football', title: 'Football', description: 'I enjoy playing football and sharing the game with others.' },
+  { icon: 'running', title: 'Marathon', description: 'Marathon training builds discipline, consistency, and perseverance.' },
+]
+
 export const cvUrl = '/CV_NGANTY_BIKELE.pdf'
 
 export const socials = [
@@ -54,6 +61,7 @@ export default {
   subtitle,
   about,
   bio,
+  interests,
   cvUrl,
   socials,
   nav,
