@@ -14,7 +14,7 @@ export const subtitle = 'Based at ENSPD Douala, I create modern web applications
 
 export const about = {
   eyebrow: 'ABOUT ME',
-  title: ['Aspiring DevOps engineer', 'building reliable applications.'],
+  title: ['Aspiring software engineer', 'building reliable applications.'],
   introTitle: "Hello, I'm Gabriel.",
   image: aboutPhoto,
   imageAlt: 'Portrait of Gabriel Nganty',
@@ -23,7 +23,7 @@ export const about = {
 export const bio = [
   'I am in my fifth year of Software Engineering at the National Advanced School of Engineering of Douala (ENSPD), Cameroon.',
   'My studies focus on software design and development. I am particularly interested in web applications, user experience, and data management.',
-  'I work with TypeScript, JavaScript, React, Angular, Node.js, Express.js, Figma, MySQL, and PostgreSQL. I aspire to become a DevOps engineer because I enjoy automating repetitive tasks and want to help teams deploy reliable applications faster.',
+  'I work with TypeScript, JavaScript, React, Angular, Node.js, Express.js, Figma, MySQL, and PostgreSQL. I enjoy designing and developing reliable, useful applications.',
 ]
 
 export const interests = [

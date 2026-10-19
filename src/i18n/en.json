@@ -119,9 +119,9 @@
     "homeHeadline": ["I’m ", "Gabriel", ", a fifth-year Software Engineering student passionate about designing and developing digital solutions."],
   "homeSubtitle": "Based at ENSPD Douala, I create modern web applications and thoughtful digital experiences.",
   "aboutEyebrow": "ABOUT ME",
-  "aboutHeading": ["Aspiring DevOps engineer", "building reliable applications."],
+  "aboutHeading": ["Aspiring software engineer", "building reliable applications."],
   "aboutIntro": "Hello, I'm Gabriel.",
-  "aboutBio": ["I am in my fifth year of Software Engineering at the National Advanced School of Engineering of Douala (ENSPD), Cameroon.", "My studies focus on software design and development. I am particularly interested in web applications, user experience, and data management.", "I work with TypeScript, JavaScript, React, Angular, Node.js, Express.js, Figma, MySQL, and PostgreSQL. I aspire to become a DevOps engineer because I enjoy automating repetitive tasks and want to help teams deploy reliable applications faster."],
+  "aboutBio": ["I am in my fifth year of Software Engineering at the National Advanced School of Engineering of Douala (ENSPD), Cameroon.", "My studies focus on software design and development. I am particularly interested in web applications, user experience, and data management.", "I work with TypeScript, JavaScript, React, Angular, Node.js, Express.js, Figma, MySQL, and PostgreSQL. I enjoy designing and developing reliable, useful applications."],
   "contactLabels": ["EMAIL", "LOCATION", "AVAILABILITY"],
   "contactValues": ["surflinkayos@gmail.com", "Douala, Cameroon (ENSPD)", "Open to internships and collaborations, on-site or remote. I gained my first professional experience during a three-and-a-half-month internship."],
   "projectContent": {
