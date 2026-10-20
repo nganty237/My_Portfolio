@@ -1,5 +1,4 @@
 import swimFront from '../../assets/swim-1.jpg'
-import swimAction from '../../assets/swim-2.jpg'
 import trainingPortrait from '../../assets/ecole-du-code-formation.jpg'
 import trainingGroup from '../../assets/promotion-ecole-du-code.jpg'
 import { Icon } from '../ui/Icon.js'
@@ -11,13 +10,6 @@ const photos = [
     src: swimFront,
     altKey: 'swimmingPhotoFrontAlt',
     captionKey: 'swimmingPhotoFrontCaption',
-    width: 810,
-    height: 900,
-  },
-  {
-    src: swimAction,
-    altKey: 'swimmingPhotoActionAlt',
-    captionKey: 'swimmingPhotoActionCaption',
     width: 810,
     height: 900,
   },
