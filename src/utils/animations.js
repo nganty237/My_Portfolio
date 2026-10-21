@@ -225,12 +225,100 @@ export function initCursorTrail() {
   })
 }
 
+/** Reveals an accent layer from the cursor and lets it recede toward the exit point. */
+export function initButtonPaint() {
+  if (
+    window.__buttonPaintInitialized ||
+    prefersReducedMotion() ||
+    !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  ) {
+    return
+  }
+
+  window.__buttonPaintInitialized = true
+
+  document.querySelectorAll('button, a[class*="rounded-full"]').forEach((target) => {
+    if (target.matches(':disabled, [aria-disabled="true"]')) return
+
+    target.classList.add('paint-hover-target')
+    const paintLayer = document.createElement('span')
+    paintLayer.className = 'button-paint-layer'
+    paintLayer.setAttribute('aria-hidden', 'true')
+    paintLayer.style.clipPath = 'circle(0px at 50% 50%)'
+
+    Array.from(target.childNodes).forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        const content = document.createElement('span')
+        content.className = 'button-paint-content'
+        node.replaceWith(content)
+        content.append(node)
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        node.classList.add('button-paint-content')
+      }
+    })
+
+    target.prepend(paintLayer)
+
+    target.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse') return
+      const bounds = target.getBoundingClientRect()
+      const x = event.clientX - bounds.left
+      const y = event.clientY - bounds.top
+      const radius = Math.ceil(Math.max(
+        Math.hypot(x, y),
+        Math.hypot(bounds.width - x, y),
+        Math.hypot(x, bounds.height - y),
+        Math.hypot(bounds.width - x, bounds.height - y)
+      ) + 2)
+
+      gsap.killTweensOf([paintLayer, target])
+      gsap.set(paintLayer, { clipPath: `circle(0px at ${x}px ${y}px)` })
+      gsap.to(paintLayer, {
+        clipPath: `circle(${radius}px at ${x}px ${y}px)`,
+        duration: 0.52,
+        ease: 'power2.out',
+      })
+      gsap.to(target, {
+        color: 'var(--color-background)',
+        duration: 0.24,
+        ease: 'power1.out',
+      })
+    })
+
+    target.addEventListener('pointerleave', (event) => {
+      if (event.pointerType !== 'mouse') return
+      const bounds = target.getBoundingClientRect()
+      const x = event.clientX - bounds.left
+      const y = event.clientY - bounds.top
+
+      gsap.killTweensOf([paintLayer, target])
+      const paintedColor = target.style.color
+      target.style.removeProperty('color')
+      const restingColor = getComputedStyle(target).color
+      target.style.color = paintedColor
+
+      gsap.to(paintLayer, {
+        clipPath: `circle(0px at ${x}px ${y}px)`,
+        duration: 0.48,
+        ease: 'power2.inOut',
+      })
+      gsap.to(target, {
+        color: restingColor,
+        duration: 0.3,
+        ease: 'power1.inOut',
+        onComplete: () => target.style.removeProperty('color'),
+      })
+    })
+  })
+}
+
 /**
  * Initialize all entrance and scroll animations across the site
  * Accelerated slightly for snappier, more professional feedback
  */
 export function initPageAnimations() {
   initCursorTrail()
+  initButtonPaint()
 
   if (prefersReducedMotion()) {
     return

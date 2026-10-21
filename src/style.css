@@ -207,6 +207,25 @@ textarea {
   pointer-events: none;
 }
 
+.paint-hover-target {
+  position: relative;
+  isolation: isolate;
+}
+
+.button-paint-layer {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--color-accent);
+  pointer-events: none;
+}
+
+.button-paint-content {
+  position: relative;
+  z-index: 1;
+}
+
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   .cursor-trail-canvas {
     display: none;
