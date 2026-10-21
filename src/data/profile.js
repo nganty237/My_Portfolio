@@ -49,9 +49,10 @@ export const nav = [
 ]
 
 export const contactInfo = [
-  { label: 'EMAIL', value: 'surflinkayos@gmail.com' },
-  { label: 'LOCATION', value: 'Douala, Cameroon (ENSPD)' },
-  { label: 'AVAILABILITY', value: 'Open to internships and collaborations, on-site or remote. I gained my first professional experience during a three-and-a-half-month internship.' },
+  { key: 'email', icon: 'mail', label: 'EMAIL', value: 'surflinkayos@gmail.com' },
+  { key: 'whatsapp', icon: 'whatsapp', label: 'WHATSAPP', value: '+237 696 584 160' },
+  { key: 'location', icon: 'map-pin', label: 'LOCATION', value: 'Douala, Cameroon (ENSPD)' },
+  { key: 'availability', icon: 'calendar-check', label: 'AVAILABILITY', value: 'Open to internships and collaborations, on-site or remote. I gained my first professional experience during a three-and-a-half-month internship.' },
 ]
 
 export default {

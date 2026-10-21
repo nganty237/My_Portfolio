@@ -19,10 +19,12 @@ export function ContactPanel({ contactInfo = defaultContactInfo } = {}) {
           ${contactInfo.map((item) => `
             <div class="border-b border-border py-2.5">
               ${item.key === 'availability'
-                ? `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><span class="inline-flex items-center gap-2 text-xs text-accent"><span class="size-1.5 rounded-full bg-accent" aria-hidden="true"></span>${item.value}</span></div>`
+                ? `<div class="grid gap-2"><span class="inline-flex items-center gap-1.5 text-[0.625rem] font-medium tracking-wide text-muted"><span class="text-accent shrink-0">${Icon(item.icon || 'calendar-check', { size: 13 })}</span><span>${item.label}</span></span><span class="inline-flex items-start gap-2 text-xs text-accent"><span class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true"></span><span>${item.value}</span></span></div>`
                 : item.key === 'email'
-                  ? `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><a class="inline-flex items-center gap-1.5 text-xs text-ink transition hover:text-accent" href="mailto:${item.value}">${item.value}<span aria-hidden="true">&#8599;</span></a></div>`
-                  : `<div class="grid gap-2"><span class="text-[0.625rem] font-medium tracking-wide text-muted">${item.label}</span><span class="text-xs text-ink">${item.value}</span></div>`}
+                  ? `<div class="grid gap-2"><span class="inline-flex items-center gap-1.5 text-[0.625rem] font-medium tracking-wide text-muted"><span class="text-accent shrink-0">${Icon(item.icon || 'mail', { size: 13 })}</span><span>${item.label}</span></span><a class="inline-flex items-center gap-1.5 text-xs text-ink transition hover:text-accent" href="mailto:${item.value}">${item.value}<span aria-hidden="true">&#8599;</span></a></div>`
+                : item.key === 'whatsapp'
+                  ? `<div class="grid gap-2"><span class="inline-flex items-center gap-1.5 text-[0.625rem] font-medium tracking-wide text-muted"><span class="text-accent shrink-0">${Icon(item.icon || 'whatsapp', { size: 13 })}</span><span>${item.label}</span></span><a class="inline-flex items-center gap-1.5 text-xs text-ink transition hover:text-accent" href="https://wa.me/${item.value.replace(/\D/g, '')}" target="_blank" rel="noopener noreferrer">${item.value}<span aria-hidden="true">&#8599;</span></a></div>`
+                  : `<div class="grid gap-2"><span class="inline-flex items-center gap-1.5 text-[0.625rem] font-medium tracking-wide text-muted"><span class="text-accent shrink-0">${Icon(item.icon || 'map-pin', { size: 13 })}</span><span>${item.label}</span></span><span class="text-xs text-ink">${item.value}</span></div>`}
             </div>
           `).join('')}
       </aside>
