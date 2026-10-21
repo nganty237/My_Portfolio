@@ -228,17 +228,22 @@ export function initCursorTrail() {
 /** Reveals an accent layer from the cursor and lets it recede toward the exit point. */
 export function initButtonPaint() {
   if (
-    window.__buttonPaintInitialized ||
     prefersReducedMotion() ||
     !window.matchMedia('(hover: hover) and (pointer: fine)').matches
   ) {
     return
   }
 
-  window.__buttonPaintInitialized = true
+  window.__buttonPaintTargets ??= new WeakSet()
 
   document.querySelectorAll('button, a[class*="rounded-full"]').forEach((target) => {
-    if (target.matches(':disabled, [aria-disabled="true"]')) return
+    if (
+      window.__buttonPaintTargets.has(target) ||
+      target.matches(':disabled, [aria-disabled="true"]')
+    ) {
+      return
+    }
+    window.__buttonPaintTargets.add(target)
 
     target.classList.add('paint-hover-target')
     const paintLayer = document.createElement('span')
