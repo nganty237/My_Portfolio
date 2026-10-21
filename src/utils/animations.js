@@ -11,11 +11,227 @@ export const prefersReducedMotion = () => {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
+/** Draws a connected particle trail and expanding ripples on mouse clicks. */
+export function initCursorTrail() {
+  if (
+    window.__cursorTrailInitialized ||
+    prefersReducedMotion() ||
+    !window.matchMedia('(pointer: fine)').matches
+  ) {
+    return
+  }
+
+  window.__cursorTrailInitialized = true
+
+  const canvas = document.createElement('canvas')
+  canvas.className = 'cursor-trail-canvas'
+  canvas.setAttribute('aria-hidden', 'true')
+  document.body.append(canvas)
+
+  const context = canvas.getContext('2d')
+  if (!context) {
+    canvas.remove()
+    return
+  }
+
+  const particles = []
+  const ripples = []
+  const particleLifetime = 1450
+  const rippleLifetime = 620
+  const particleSpacing = 22
+  const linkDistance = 92
+  let frameId = 0
+  let pixelRatio = 1
+  let distanceSinceParticle = 0
+  let lastPoint = null
+  let cursor = null
+
+  const accentColor = () => {
+    const value = getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-accent')
+      .trim()
+    return /^#[\da-f]{3,8}$/i.test(value) ? value : '#315fc4'
+  }
+
+  const resizeCanvas = () => {
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+    canvas.width = Math.round(window.innerWidth * pixelRatio)
+    canvas.height = Math.round(window.innerHeight * pixelRatio)
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+  }
+
+  const draw = (now) => {
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
+    while (particles.length && now - particles[0].time > particleLifetime) particles.shift()
+    while (
+      ripples.length &&
+      now - ripples[0].time > rippleLifetime + ripples[0].delay
+    ) {
+      ripples.shift()
+    }
+
+    const color = accentColor()
+    context.lineCap = 'round'
+    for (let index = 0; index < particles.length; index += 1) {
+      const particle = particles[index]
+      const fade = Math.max(0, 1 - (now - particle.time) / particleLifetime)
+
+      for (let neighborIndex = index + 1; neighborIndex < particles.length; neighborIndex += 1) {
+        const neighbor = particles[neighborIndex]
+        const distance = Math.hypot(neighbor.x - particle.x, neighbor.y - particle.y)
+        if (distance > linkDistance) continue
+
+        const neighborFade = Math.max(0, 1 - (now - neighbor.time) / particleLifetime)
+        context.globalAlpha = Math.min(fade, neighborFade) * (1 - distance / linkDistance) * 0.52
+        context.strokeStyle = color
+        context.lineWidth = 1
+        context.beginPath()
+        context.moveTo(particle.x, particle.y)
+        context.lineTo(neighbor.x, neighbor.y)
+        context.stroke()
+      }
+
+      context.globalAlpha = fade * 0.25
+      context.fillStyle = color
+      context.shadowColor = color
+      context.shadowBlur = 12
+      context.beginPath()
+      context.arc(particle.x, particle.y, particle.radius + 2, 0, Math.PI * 2)
+      context.fill()
+      context.globalAlpha = fade * 0.88
+      context.shadowBlur = 5
+      context.beginPath()
+      context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+      context.fill()
+      context.shadowBlur = 0
+    }
+
+    if (cursor) {
+      context.globalAlpha = 0.48
+      context.strokeStyle = color
+      context.lineWidth = 1
+      context.beginPath()
+      context.arc(cursor.x, cursor.y, 23, 0, Math.PI * 2)
+      context.stroke()
+      context.globalAlpha = 1
+      context.fillStyle = color
+      context.shadowColor = color
+      context.shadowBlur = 10
+      context.beginPath()
+      context.arc(cursor.x, cursor.y, 3, 0, Math.PI * 2)
+      context.fill()
+      context.shadowBlur = 0
+    }
+
+    ripples.forEach((ripple) => {
+      const elapsed = now - ripple.time - ripple.delay
+      if (elapsed < 0) return
+      const progress = Math.min(1, elapsed / rippleLifetime)
+      context.globalAlpha = (1 - progress) * 0.72
+      context.strokeStyle = color
+      context.lineWidth = 1.7
+      context.beginPath()
+      context.arc(ripple.x, ripple.y, 3 + progress * ripple.radius, 0, Math.PI * 2)
+      context.stroke()
+    })
+
+    context.globalAlpha = 1
+    if (particles.length || ripples.length) {
+      frameId = requestAnimationFrame(draw)
+    } else {
+      frameId = 0
+    }
+  }
+
+  const requestDraw = () => {
+    if (!frameId) frameId = requestAnimationFrame(draw)
+  }
+
+  const onPointerMove = (event) => {
+    if (event.pointerType !== 'mouse') return
+    const point = { x: event.clientX, y: event.clientY, time: performance.now() }
+    cursor = point
+    const previous = lastPoint && point.time - lastPoint.time < 300 ? lastPoint : null
+    if (previous) {
+      const deltaX = point.x - previous.x
+      const deltaY = point.y - previous.y
+      const distance = Math.hypot(deltaX, deltaY)
+      let distanceToNextParticle = particleSpacing - distanceSinceParticle
+      let remainingDistance = distance
+      let travelledDistance = 0
+
+      while (remainingDistance >= distanceToNextParticle && distance > 0) {
+        travelledDistance += distanceToNextParticle
+        const ratio = travelledDistance / distance
+        particles.push({
+          x: previous.x + deltaX * ratio + (Math.random() - 0.5) * 12,
+          y: previous.y + deltaY * ratio + (Math.random() - 0.5) * 12,
+          radius: 1.6 + Math.random() * 1.8,
+          time: point.time,
+        })
+        remainingDistance -= distanceToNextParticle
+        distanceToNextParticle = particleSpacing
+      }
+      distanceSinceParticle = remainingDistance
+    } else {
+      distanceSinceParticle = 0
+      particles.push({ x: point.x, y: point.y, radius: 2.3, time: point.time })
+    }
+    lastPoint = point
+    requestDraw()
+  }
+
+  const onPointerDown = (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
+    const time = performance.now()
+    ;[48, 78, 112].forEach((radius, index) => {
+      ripples.push({
+        x: event.clientX,
+        y: event.clientY,
+        radius,
+        delay: index * 55,
+        time,
+      })
+    })
+    requestDraw()
+  }
+
+  const clearCanvas = () => {
+    particles.length = 0
+    ripples.length = 0
+    distanceSinceParticle = 0
+    lastPoint = null
+    cursor = null
+    if (frameId) cancelAnimationFrame(frameId)
+    frameId = 0
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight)
+  }
+
+  resizeCanvas()
+  window.addEventListener('resize', resizeCanvas, { passive: true })
+  window.addEventListener('pointermove', onPointerMove, { passive: true })
+  window.addEventListener('pointerdown', onPointerDown, { passive: true })
+  window.addEventListener('pointerout', (event) => {
+    if (event.relatedTarget) return
+    cursor = null
+    lastPoint = null
+    distanceSinceParticle = 0
+    requestDraw()
+  }, { passive: true })
+  window.addEventListener('blur', clearCanvas)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearCanvas()
+  })
+}
+
 /**
  * Initialize all entrance and scroll animations across the site
  * Accelerated slightly for snappier, more professional feedback
  */
 export function initPageAnimations() {
+  initCursorTrail()
+
   if (prefersReducedMotion()) {
     return
   }

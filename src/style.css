@@ -198,6 +198,21 @@ textarea {
   box-shadow: 0 1px 0 color-mix(in srgb, var(--color-accent) 28%, var(--color-border));
 }
 
+.cursor-trail-canvas {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-trail-canvas {
+    display: none;
+  }
+}
+
 .theme-logo {
   transition: filter 200ms ease;
 }

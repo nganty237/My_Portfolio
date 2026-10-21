@@ -1,5 +1,4 @@
 import { nav, name } from '../../data/profile.js'
-// ← remplacer par l'export Figma
 import logoNg from '../../assets/logo-ng.svg'
 import { on, qs, qsa } from '../../utils/dom.js'
 import { Icon } from '../ui/Icon.js'
@@ -170,7 +169,7 @@ export function initNavbar() {
     const toggle = qs('[data-menu-toggle]')
     if (window.matchMedia('(min-width: 48rem)').matches && toggle?.getAttribute('aria-expanded') === 'true') {
       setMenuState(false)
-    }
+    } 
   }
 
   setTheme(localStorage.getItem('portfolio-theme') === 'dark')
