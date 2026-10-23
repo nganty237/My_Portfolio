@@ -118,10 +118,36 @@ textarea {
   font-family: inherit;
 }
 
+.language-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink);
+}
+
+.language-control__globe,
+.language-control__chevron {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.language-control__globe {
+  left: 0.45rem;
+}
+
+.language-control__chevron {
+  right: 0.35rem;
+}
+
 .language-select {
-  width: 3.5rem;
-  height: 1.8rem;
-  padding: 0 0.2rem 0 0.4rem;
+  width: 4.65rem;
+  height: 2rem;
+  appearance: none;
+  padding: 0 1.25rem 0 1.6rem;
   font: 500 0.7rem/1 var(--font-sans);
   cursor: pointer;
 }

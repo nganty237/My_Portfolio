@@ -1,6 +1,8 @@
 const icons = {
   menu: '<path d="M4 6h16M4 12h16M4 18h16" />',
   close: '<path d="m6 6 12 12M18 6 6 18" />',
+  globe: '<circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />',
+  'chevron-down': '<path d="m6 9 6 6 6-6" />',
   sun: '<circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />',
   moon: '<path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z" />',
   'arrow-up-right': '<path d="M7 17 17 7M7 7h10v10" />',

@@ -21,10 +21,14 @@ function navigationLinks(className = '') {
 }
 
 function languageSelector(locale, className = '') {
-  return `<select class="${className} language-select rounded-full border border-border bg-surface-strong text-ink focus:outline-2 focus:outline-offset-2 focus:outline-accent" data-locale-select aria-label="${t('language')}">
-    <option value="fr" ${locale === 'fr' ? 'selected' : ''}>FR</option>
-    <option value="en" ${locale === 'en' ? 'selected' : ''}>EN</option>
-  </select>`
+  return `<label class="${className} language-control" aria-label="${t('language')}">
+    <span class="language-control__globe">${Icon('globe', { size: 16 })}</span>
+    <select class="language-select rounded-full border border-border bg-surface-strong text-ink focus:outline-2 focus:outline-offset-2 focus:outline-accent" data-locale-select aria-label="${t('language')}">
+      <option value="fr" ${locale === 'fr' ? 'selected' : ''}>FR</option>
+      <option value="en" ${locale === 'en' ? 'selected' : ''}>EN</option>
+    </select>
+    <span class="language-control__chevron">${Icon('chevron-down', { size: 13 })}</span>
+  </label>`
 }
 
 export function Navbar() {
