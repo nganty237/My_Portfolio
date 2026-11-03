@@ -1,4 +1,4 @@
-export function initCardBackground(canvas) {
+export function initCardBackground(canvas, { showAnimatedGrid = true } = {}) {
   if (!canvas) return
 
   const context = canvas.getContext('2d')
@@ -49,7 +49,7 @@ export function initCardBackground(canvas) {
       const y = star.y + Math.sin(rotation * Math.PI * 2 + star.phase) * 0.004
       const twinkle = motionPreference.matches ? 0.56 : 0.36 + (Math.sin(time * 0.00016 * star.speed + star.phase) + 1) * 0.27
       context.globalAlpha = twinkle
-      context.fillStyle = '#dce6ff'
+      context.fillStyle = document.documentElement.hasAttribute('data-theme') ? '#dce6ff' : '#315fc4'
       context.beginPath()
       context.arc(x * width, y * height, star.radius, 0, Math.PI * 2)
       context.fill()
@@ -57,7 +57,7 @@ export function initCardBackground(canvas) {
     context.globalAlpha = 1
   }
 
-  const drawGrid = (time) => {
+  const drawAnimatedGrid = (time) => {
     const accent = readAccent()
     const horizon = height * 0.31
     const depthHeight = height - horizon
@@ -113,7 +113,7 @@ export function initCardBackground(canvas) {
 
     context.clearRect(0, 0, width, height)
     drawStars(time)
-    drawGrid(time)
+    if (showAnimatedGrid) drawAnimatedGrid(time)
 
     if (!motionPreference.matches && !document.hidden) frameId = requestAnimationFrame(draw)
     else frameId = 0
@@ -132,9 +132,17 @@ export function initCardBackground(canvas) {
     }
   }
 
-  resize()
-  window.addEventListener('resize', resize, { passive: true })
+  const onResize = () => resize()
+  window.addEventListener('resize', onResize, { passive: true })
   document.addEventListener('visibilitychange', onVisibilityChange)
   motionPreference.addEventListener?.('change', resize)
+  resize()
   if (!motionPreference.matches) start()
+
+  return () => {
+    cancelAnimationFrame(frameId)
+    window.removeEventListener('resize', onResize)
+    document.removeEventListener('visibilitychange', onVisibilityChange)
+    motionPreference.removeEventListener?.('change', resize)
+  }
 }

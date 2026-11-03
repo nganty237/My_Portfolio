@@ -1,8 +1,9 @@
 import { nav, name } from '../../data/profile.js'
 import logoNg from '../../assets/logo-ng.svg'
-import { on, qs, qsa } from '../../utils/dom.js'
+import { on, qs } from '../../utils/dom.js'
 import { Icon } from '../ui/Icon.js'
-import { getLocale, setLocale, t } from '../../i18n/index.js'
+import { getLocale, t } from '../../i18n/index.js'
+import { initAppearanceControls, LanguageSelector, ThemeToggle } from './AppearanceControls.js'
 
 function loadAnimations() {
   return import('../../utils/animations.js')
@@ -18,17 +19,6 @@ function navigationLinks(className = '') {
 
     return `<a class="${className} ${activeClassName}" href="${href}"${currentAttribute}>${t(label.toLowerCase())}</a>`
   }).join('')
-}
-
-function languageSelector(locale, className = '') {
-  return `<label class="${className} language-control" aria-label="${t('language')}">
-    <span class="language-control__globe">${Icon('globe', { size: 16 })}</span>
-    <select class="language-select rounded-full border border-border bg-surface-strong text-ink focus:outline-2 focus:outline-offset-2 focus:outline-accent" data-locale-select aria-label="${t('language')}">
-      <option value="fr" ${locale === 'fr' ? 'selected' : ''}>FR</option>
-      <option value="en" ${locale === 'en' ? 'selected' : ''}>EN</option>
-    </select>
-    <span class="language-control__chevron">${Icon('chevron-down', { size: 13 })}</span>
-  </label>`
 }
 
 export function Navbar() {
@@ -47,10 +37,8 @@ export function Navbar() {
         </nav>
 
         <div class="flex items-center gap-3">
-          ${languageSelector(locale)}
-          <button class="hidden size-10 items-center cursor-pointer justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:inline-flex" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
-            <span data-theme-icon>${Icon('moon')}</span>
-          </button>
+          ${LanguageSelector(locale)}
+          ${ThemeToggle('hidden size-10 items-center cursor-pointer justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:inline-flex')}
           <button class="inline-flex size-10 items-center justify-center rounded-full text-ink transition hover:bg-surface focus:outline-2 focus:outline-offset-2 focus:outline-ink md:hidden" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="${t('menuOpen')}">
             ${Icon('menu')}
           </button>
@@ -63,9 +51,7 @@ export function Navbar() {
       <div class="flex items-center justify-between">
         <a class="font-display text-2xl text-ink" href="/index.html">${logoSource ? `<img class="theme-logo size-10" src="${logoSource}" alt="" aria-hidden="true" />` : 'NG.'}</a>
         <div class="flex items-center gap-2">
-          <button class="inline-flex size-10 items-center justify-center rounded-full border border-border bg-surface-strong text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-theme-toggle aria-pressed="false" aria-label="${t('themeDark')}">
-            <span data-theme-icon>${Icon('moon', { size: 20 })}</span>
-          </button>
+          ${ThemeToggle('inline-flex size-10 items-center justify-center rounded-full border border-border bg-surface-strong text-ink transition hover:border-accent hover:text-accent focus:outline-2 focus:outline-offset-2 focus:outline-ink')}
           <button class="inline-flex size-10 items-center justify-center rounded-full text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink" type="button" data-menu-close aria-label="${t('menuClose')}">
             ${Icon('close')}
           </button>
@@ -74,7 +60,7 @@ export function Navbar() {
       <nav class="mt-14 grid gap-5 text-sm font-sans" aria-label="${t('mobileNav')}">
         ${navigationLinks('transition hover:text-accent').replaceAll('<a ', '<a data-menu-link ')}
       </nav>
-      ${languageSelector(locale, 'mt-8')}
+      ${LanguageSelector(locale, 'mt-8')}
     </div>
   `
 }
@@ -122,33 +108,6 @@ function unlockPageScroll() {
 }
 
 export function initNavbar() {
-  const setTheme = (isDark, persist = false) => {
-    if (isDark) {
-      document.documentElement.setAttribute('data-theme', 'dark')
-    } else {
-      document.documentElement.removeAttribute('data-theme')
-    }
-    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light'
-
-    qsa('[data-theme-toggle]').forEach((themeToggle) => {
-      themeToggle.setAttribute('aria-pressed', String(isDark))
-      themeToggle.setAttribute('aria-label', isDark ? t('themeLight') : t('themeDark'))
-      const icon = qs('[data-theme-icon]', themeToggle)
-      const label = qs('[data-theme-label]', themeToggle)
-      if (icon) {
-        icon.innerHTML = Icon(isDark ? 'sun' : 'moon', { size: label ? 15 : 20 })
-      }
-      if (label) {
-        label.textContent = isDark ? t('lightMode') : t('darkMode')
-      }
-    })
-
-    if (persist) {
-      localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light')
-      loadAnimations().then(({ animateThemeToggle }) => animateThemeToggle(isDark))
-    }
-  }
-
   const setMenuState = (isOpen) => {
     const header = qs('[data-site-header]')
     const menu = qs('[data-menu]')
@@ -176,16 +135,14 @@ export function initNavbar() {
     } 
   }
 
-  setTheme(localStorage.getItem('portfolio-theme') === 'dark')
+  initAppearanceControls()
   const updateHeaderBackground = () => qs('[data-site-header]')?.classList.toggle('is-scrolled', window.scrollY > 8)
   updateHeaderBackground()
   if (!navbarInitialized) {
     window.addEventListener('scroll', updateHeaderBackground, { passive: true })
     window.addEventListener('resize', closeMenuOnDesktop, { passive: true })
-    on(document, 'click', '[data-theme-toggle]', () => setTheme(!document.documentElement.hasAttribute('data-theme'), true))
-    on(document, 'change', '[data-locale-select]', (_, selector) => {
+    on(document, 'change', '[data-locale-select]', () => {
       if (qs('[data-menu-toggle]')?.getAttribute('aria-expanded') === 'true') setMenuState(false)
-      setLocale(selector.value)
     })
     on(document, 'click', '[data-menu-toggle]', (_, toggle) => setMenuState(toggle.getAttribute('aria-expanded') !== 'true'))
     on(document, 'click', '[data-menu-close]', () => setMenuState(false))
