@@ -35,6 +35,8 @@ export const interests = [
 
 export const cvUrl = '/CV_NGANTY_BIKELE.pdf'
 
+export const siteUrl = 'https://www.ngantybikele.dev'
+
 export const socials = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/anicet-nganty-bikele', icon: 'linkedin' },
   { label: 'Facebook', href: 'https://web.facebook.com/gabriel.nganty.2025?locale=fr_FR', icon: 'facebook' },
@@ -64,6 +66,7 @@ export default {
   bio,
   interests,
   cvUrl,
+  siteUrl,
   socials,
   nav,
   contactInfo,

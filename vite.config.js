@@ -17,6 +17,7 @@ export default defineConfig({
         projects: path.resolve(rootDir, 'projects.html'),
         contact: path.resolve(rootDir, 'contact.html'),
         project: path.resolve(rootDir, 'project.html'),
+        card: path.resolve(rootDir, 'card.html'),
       },
     },
   },

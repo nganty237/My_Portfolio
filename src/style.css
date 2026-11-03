@@ -210,6 +210,49 @@ textarea {
   );
 }
 
+.card-page {
+  background:
+    radial-gradient(ellipse at 20% 18%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 42%),
+    linear-gradient(135deg, var(--color-bg), color-mix(in srgb, var(--color-bg) 94%, var(--color-accent) 6%));
+}
+
+.card-page__scene {
+  z-index: 1;
+}
+
+.card-page__content {
+  z-index: 2;
+}
+
+.card-page__portrait {
+  box-shadow: 0 0 0 1px var(--color-border), 0 14px 40px color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.card-page__name {
+  max-width: 12ch;
+  overflow-wrap: normal;
+}
+
+.card-page [data-card-cta] {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  padding-inline: 1.35rem;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
+.card-page [data-card-cta]:hover {
+  background: color-mix(in srgb, var(--color-accent) 86%, var(--color-ink));
+}
+
+.card-page__social {
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background: color-mix(in srgb, var(--color-surface-strong) 60%, transparent);
+}
+
+.card-page__social:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+}
+
 .site-header {
   transition: background-color 180ms ease, box-shadow 180ms ease;
 }
