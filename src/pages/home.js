@@ -9,10 +9,13 @@ import { Button } from '../components/ui/Button.js'
 import { Section } from '../components/ui/Section.js'
 import { getLocalizedProjects, getLocalizedProfile } from '../i18n/content.js'
 import { setDocumentMetadata, t } from '../i18n/index.js'
+import { initCardBackground } from '../utils/cardBackground.js'
 
 const app = document.querySelector('#app')
+let disposeHeroStarfield
 
 function render() {
+  disposeHeroStarfield?.()
   app.innerHTML = Page({
     children: `${Hero(getLocalizedProfile())}${Section({
       id: 'selected-work',
@@ -26,6 +29,7 @@ function render() {
   initNavbar()
   initCtaFooter()
   initProjectFilters()
+  disposeHeroStarfield = initCardBackground(document.querySelector('[data-hero-starfield]'), { showAnimatedGrid: false })
 }
 
 render()

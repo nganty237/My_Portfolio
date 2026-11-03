@@ -23,6 +23,7 @@ export function Hero({ eyebrow, headline = [], subtitle, cvUrl, cvFilename, soci
   return `
     <section class="hero-section relative isolate overflow-hidden" data-hero>
       ${backgroundSource ? `<img class="hero-background pointer-events-none absolute inset-0 h-full w-full object-cover" src="${backgroundSource}" alt="" aria-hidden="true" data-hero-bg />` : ''}
+      <canvas class="hero-starfield pointer-events-none absolute inset-0 h-full w-full" data-hero-starfield aria-hidden="true"></canvas>
       <div class="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 content-center gap-5 px-6 py-14 md:py-18">
         <div class="flex items-center justify-between gap-4" data-hero-item>
           <p class="label hero-eyebrow text-muted">${eyebrow ?? ''}</p>
